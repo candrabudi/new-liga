@@ -366,7 +366,7 @@
             <a href="#" onclick="window.closeWindows(); document.querySelector('#logout-form').submit();">
                 <i data-icon="logout"
                     style="background-image: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/menu/logout.svg?v=20250528);"></i>
-                <form action="/logout" id="logout-form" method="post">Keluar</form>
+                <form action="/logout" id="logout-form" method="post">@csrf Keluar</form>
             </a>
         </li>
     </ul>
