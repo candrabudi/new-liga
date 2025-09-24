@@ -664,7 +664,7 @@
 
     @if (!Auth::user())
         <div class="login-links-container">
-            <a href="register.html" class="register-button">
+            <a href="/mobile/register" class="register-button">
                 Daftar
             </a>
             <a data-require-login class="login-button">
