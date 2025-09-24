@@ -30,6 +30,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home/menu-games', [ComponentController::class, 'providers'])->name('providers');
 Route::get('/mobile/register', [AuthController::class, 'register'])->name('mobile.register');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/login/process', [AuthController::class, 'loginProcess'])->name('login.process');
 Route::post('/register/process', [AuthController::class, 'registerProcess'])->name('register.process');
 Route::get('/mobile/slots/{a}', [GameController::class, 'slot'])->name('slot');
