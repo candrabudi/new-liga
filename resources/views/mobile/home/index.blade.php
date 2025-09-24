@@ -1130,7 +1130,7 @@
                     <h3 style="text-align: center;"><strong>Kami Menyediakan <span style="color: #ffcc00;">Event
                                 Loyalty</span> Untuk member {{ $website->website_name }} ( <span
                                 style="color: #ffcc00;">PERIODE TGL 1
-                                JULI - 31 AGUSTUS 2025</span>&nbsp;)</strong></h3>
+                                JULI - 31 AGUSTUS 2026</span>&nbsp;)</strong></h3>
                     <p style="text-align: center;"><strong>Link Alternatif {{ $website->website_name }} :</strong></p>
                     <table
                         style="height: 140px; width: 33.474%; border-collapse: collapse; background-color: #393838; border-color: #ffffff; margin-left: auto; margin-right: auto;"
@@ -1139,25 +1139,25 @@
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><strong><span
                                             style="color: #ffcc00;"><a style="color: #ffcc00;"
-                                                href="https://resmi.vip/lm2">Link Alternatif 2</a></span></strong>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 2</a></span></strong>
                                 </td>
                             </tr>
                             <tr style="padding-left: 40px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://resmi.vip/lm2">Link Alternatif 2</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 2</a></strong></span>
                                 </td>
                             </tr>
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://resmi.vip/lm2">Link Alternatif 3</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 3</a></strong></span>
                                 </td>
                             </tr>
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://resmi.vip/lm2">Link Alternatif 4</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 4</a></strong></span>
                                 </td>
                             </tr>
                         </tbody>
