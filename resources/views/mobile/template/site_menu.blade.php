@@ -363,12 +363,16 @@
             </a>
         </li>
         <li>
-            <a href="#" onclick="window.closeWindows(); document.querySelector('#logout-form').submit();">
-                <i data-icon="logout"
-                    style="background-image: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/menu/logout.svg?v=20250528);"></i>
-                <form action="/Account/Logout" id="logout-form" method="post">Keluar</form>
-            </a>
+            <form id="logout-form" action="/logout" method="POST" style="display: inline;">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i data-icon="logout"
+                        style="background-image: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/menu/logout.svg?v=20250528);">
+                    </i>
+                    Keluar
+                </button>
+            </form>
         </li>
+
     </ul>
 @else
     <ul>

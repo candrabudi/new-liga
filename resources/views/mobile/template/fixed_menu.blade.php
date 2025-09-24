@@ -8,7 +8,7 @@
             Beranda
         </a>
 
-        <a href="/mobile/promotion" data-active="{{ request()->is('mobile/promotion*') ? 'true' : 'false' }}">
+        <a href="/mobile/promotions" data-active="{{ request()->is('mobile/promotions*') ? 'true' : 'false' }}">
             <img alt="Promotion" height="25" loading="lazy"
                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/promotion.svg?v=20250528"
                 style="--image-src: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/promotion-active.svg?v=20250528);"
@@ -32,7 +32,8 @@
             Hub. Kami
         </a>
 
-        <a href="/mobile/account-summary"
+        {{-- <a href="/mobile/account-summary" --}}
+        <a href="/"
             data-active="{{ request()->is('mobile/account-summary*') ? 'true' : 'false' }}">
             <img alt="My Account" height="25" loading="lazy"
                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/my-account.svg?v=20250528"
@@ -51,7 +52,7 @@
             Beranda
         </a>
 
-        <a href="/mobile/promotion" data-active="{{ request()->is('mobile/promotion*') ? 'true' : 'false' }}">
+        <a href="/mobile/promotions" data-active="{{ request()->is('mobile/promotion*') ? 'true' : 'false' }}">
             <img alt="Promotion" height="25" loading="lazy"
                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/promotion.svg?v=20250528"
                 style="--image-src: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/promotion-active.svg?v=20250528);"
