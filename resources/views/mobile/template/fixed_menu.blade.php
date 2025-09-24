@@ -16,7 +16,7 @@
             Promosi
         </a>
 
-        <a href="/mobile/deposit" data-active="{{ request()->is('mobile/deposit*') ? 'true' : 'false' }}">
+        <a href="/mobile/deposit/bank" data-active="{{ request()->is('mobile/deposit*') ? 'true' : 'false' }}">
             <img alt="Deposit" height="25" loading="lazy"
                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/banking.svg?v=20250528"
                 style="--image-src: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/banking-active.svg?v=20250528);"

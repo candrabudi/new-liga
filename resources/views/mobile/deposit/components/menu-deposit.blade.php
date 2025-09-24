@@ -10,14 +10,6 @@
             </label>
         </div>
         <div>
-            <input type="radio" name="PaymentType" id="payment_method_VA" value="VA">
-            <label for="payment_method_VA">
-                <img loading="lazy" src="//dsuown9evwz4y.cloudfront.net/Images/payment-types/VA.svg?v=20250528"
-                    alt="VA">
-                <span>Virtual Acc</span>
-            </label>
-        </div>
-        <div>
             <input type="radio" name="PaymentType" id="payment_method_BANK" value="BANK">
             <label for="payment_method_BANK">
                 <img loading="lazy" src="//dsuown9evwz4y.cloudfront.net/Images/payment-types/BANK.svg?v=20250528"
