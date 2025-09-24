@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Player\AuthController;
 use App\Http\Controllers\Player\ComponentController;
+use App\Http\Controllers\Player\ContactController;
 use App\Http\Controllers\Player\DepositController;
 use App\Http\Controllers\Player\GameController;
 use App\Http\Controllers\Player\HomeController;
+use App\Http\Controllers\Player\PromotionController;
 use App\Http\Controllers\Secret\SAdjustmentController;
 use App\Http\Controllers\Secret\SAuthController;
 use App\Http\Controllers\Secret\SBannerController;
@@ -32,6 +34,9 @@ Route::post('/login/process', [AuthController::class, 'loginProcess'])->name('lo
 Route::post('/register/process', [AuthController::class, 'registerProcess'])->name('register.process');
 Route::get('/mobile/slots/{a}', [GameController::class, 'slot'])->name('slot');
 Route::get('mobile/slots/games/{a}', [GameController::class, 'games'])->name('games');
+Route::get('mobile/contact-us', [ContactController::class, 'index'])->name('contact.index');
+Route::get('mobile/promotions', [PromotionController::class, 'index'])->name('promotions.index');
+Route::get('mobile/promotions/details/{slug}', [PromotionController::class, 'show'])->name('promotions.show');
 Route::get('import', [GameController::class, 'import'])->name('import');
 
 Route::middleware(['auth'])->group(function () {
