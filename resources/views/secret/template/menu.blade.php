@@ -21,10 +21,8 @@
             <div class="menu-title">Deposit</div>
         </a>
         <ul>
-            <li><a href="{{ route('secret.deposits.pending') }}"><i class='bx bx-radio-circle'></i>Deposit Pending</a>
-            </li>
-            <li><a href="{{ route('secret.deposits.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Deposit</a>
-            </li>
+            <li><a href="{{ route('secret.deposits.pending') }}"><i class='bx bx-radio-circle'></i>Deposit Pending</a></li>
+            <li><a href="{{ route('secret.deposits.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Deposit</a></li>
         </ul>
     </li>
     <li>
@@ -33,10 +31,8 @@
             <div class="menu-title">Withdraw</div>
         </a>
         <ul>
-            <li><a href="{{ route('secret.withdraws.pending') }}"><i class='bx bx-radio-circle'></i>Withdraw Pending</a>
-            </li>
-            <li><a href="{{ route('secret.withdraws.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Withdraw</a>
-            </li>
+            <li><a href="{{ route('secret.withdraws.pending') }}"><i class='bx bx-radio-circle'></i>Withdraw Pending</a></li>
+            <li><a href="{{ route('secret.withdraws.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Withdraw</a></li>
         </ul>
     </li>
     <li>
@@ -63,6 +59,12 @@
         <a href="{{ route('secret.finance.index') }}">
             <div class="parent-icon"><i class="bx bx-transfer-alt"></i></div>
             <div class="menu-title">Pengaturan Keuangan</div>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('secret.channels.index') }}">
+            <div class="parent-icon"><i class="bx bx-credit-card-front"></i></div>
+            <div class="menu-title">Channel</div>
         </a>
     </li>
     <li>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Player\WithdrawController;
 use App\Http\Controllers\Secret\SAdjustmentController;
 use App\Http\Controllers\Secret\SAuthController;
 use App\Http\Controllers\Secret\SBannerController;
+use App\Http\Controllers\Secret\SChannelController;
 use App\Http\Controllers\Secret\SContactController;
 use App\Http\Controllers\Secret\SDashboardController;
 use App\Http\Controllers\Secret\SDepositController;
@@ -177,6 +178,14 @@ Route::prefix('secret')->as('secret.')->group(function () {
             Route::delete('{promotion}', 'destroy')->name('destroy');
         });
 
+        Route::prefix('/channels')->name('channels.')->group(function () {
+            Route::get('/', [SChannelController::class, 'index'])->name('index');
+            Route::get('/list', [SChannelController::class, 'list'])->name('list');
+            Route::post('/', [SChannelController::class, 'store'])->name('store');
+            Route::get('/{id}', [SChannelController::class, 'show'])->name('show');
+            Route::put('/{id}', [SChannelController::class, 'update'])->name('update');
+            Route::delete('/{id}', [SChannelController::class, 'destroy'])->name('destroy');
+        });
         Route::get('profile', [SProfileController::class, 'index'])->name('profile.index');
         Route::put('profile', [SProfileController::class, 'update'])->name('profile.update');
 
