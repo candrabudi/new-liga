@@ -34,149 +34,52 @@
     </ul>
     <h2>Metode Pembayaran</h2>
     <ul class="bank-list">
-        <li>
-            <div data-online="true">
-                <picture>
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/QR.webp?v=20250528"
-                        type="image/webp" />
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/QR.png?v=20250528"
-                        type="image/png" /><img alt="NXPAY DEPOSIT QR" height="40" loading="lazy"
-                        src="../../dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/QRe252.png?v=20250528"
-                        width="80" />
-                </picture>
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <picture>
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/VA.webp?v=20250528"
-                        type="image/webp" />
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/VA.png?v=20250528"
-                        type="image/png" /><img alt="NXPAY DEPOSIT VA BCA" height="40" loading="lazy"
-                        src="../../dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/VAe252.png?v=20250528"
-                        width="80" />
-                </picture>
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <picture>
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/OVO.webp?v=20250528"
-                        type="image/webp" />
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/OVO.png?v=20250528"
-                        type="image/png" /><img alt="NXPAY DEPOSIT EMONEY OVO" height="40" loading="lazy"
-                        src="../../dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/OVOe252.png?v=20250528"
-                        width="80" />
-                </picture>
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <picture>
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/DANA.webp?v=20250528"
-                        type="image/webp" />
-                    <source srcset="//dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/DANA.png?v=20250528"
-                        type="image/png" /><img alt="NXPAY DEPOSIT EMONEY DANA" height="40" loading="lazy"
-                        src="../../dsuown9evwz4y.cloudfront.net/Images/footer/bank-list/DANAe252.png?v=20250528"
-                        width="80" />
-                </picture>
-            </div>
-        </li>
-
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/BCA_e1bab23f-dda6-4835-b3ce-d5039f28546c_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/BNI_3d30334c-d871-46fb-80b3-0fcb12f99b87_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/BRI_a458ab91-91a3-49ac-98b3-1bfc5d1966bd_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/DANA_cb3bce7a-fa0c-4d8c-93c7-e6e4b5a0a18c_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/GOPAY_fa571dd7-0add-44fa-9aef-184f8fb1a66d_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/LINKAJA_1ad00c17-5bb0-49f6-896c-57408f81777b_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/MANDIRI_ec4427ff-2e6e-4657-a2fe-b3702bc15e7c_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/OVO_ddd6e876-f366-4b0b-a506-d0e8210c55e9_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/QRIS_54c3e101-286b-4bd9-908a-29835a548e8a_1722478644047.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/TELKOMSEL_708c135d-74c5-482f-9d03-27a5f7035c60_1713031468740.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
-        <li>
-            <div data-online="true">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/XL_ea2a82b1-ca96-4eb1-9a52-cf378c6405e7_1713031481760.png"
-                    width="80" height="40" alt="-" loading="lazy" />
-            </div>
-        </li>
+        @php
+            use App\Models\PaymentOwner;
+            $payOwnersFooter = PaymentOwner::where('is_active', 1)->get();
+        @endphp
+        @foreach ($payOwnersFooter as $payfoot)    
+            <li>
+                <div data-online="true">
+                    <picture>
+                        <source srcset="{{ asset('storage/'.$payfoot->channel->logo) }}"
+                            type="image/webp" />
+                        <source srcset="{{ asset('storage/'.$payfoot->channel->logo) }}"
+                            type="image/png" /><img alt="NXPAY DEPOSIT QR" height="40" loading="lazy"
+                            src="{{ asset('storage/'.$payfoot->channel->logo) }}"
+                            width="80" />
+                    </picture>
+                </div>
+            </li>
+        @endforeach
     </ul>
-    <h2>Tetap terhubung dengan kami</h2>
+    {{-- <h2>Tetap terhubung dengan kami</h2>
     <ul class="social-media-list">
         <li>
             <a href="https://t.me/{{ $website->website_name }}" target="_blank" rel="nofollow">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/Telegram_8cce9d2b-6b34-4b97-8b2d-f5b4efdfd7fb_1599462102260.png"
+                <img src="api2-lm2.imgnxb.com/images/3EVO99w9oUw/Telegram_8cce9d2b-6b34-4b97-8b2d-f5b4efdfd7fb_1599462102260.png"
                     alt="-" width="32" height="32" loading="lazy" />
             </a>
         </li>
         <li>
             <a href="https://www.instagram.com/{{ $website->website_name }}/" target="_blank" rel="nofollow">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/Intagram_ef828ab4-d3d4-4173-9bc7-aba72f288a7e_1602839509807.png"
+                <img src="api2-lm2.imgnxb.com/images/3EVO99w9oUw/Intagram_ef828ab4-d3d4-4173-9bc7-aba72f288a7e_1602839509807.png"
                     alt="-" width="32" height="32" loading="lazy" />
             </a>
         </li>
         <li>
             <a href="https://www.facebook.com/{{ $website->website_name }}/" target="_blank" rel="nofollow">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/Facebook_10baf2ba-78f9-4e11-9da1-ed3414c8d560_1602839528260.png"
+                <img src="api2-lm2.imgnxb.com/images/3EVO99w9oUw/Facebook_10baf2ba-78f9-4e11-9da1-ed3414c8d560_1602839528260.png"
                     alt="-" width="32" height="32" loading="lazy" />
             </a>
         </li>
         <li>
             <a href="https://twitter.com/{{ $website->website_name }}" target="_blank" rel="nofollow">
-                <img src="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/Twitter_2f8bb764-3e6c-46bc-88b6-4c38354cf7d5_1602839546807.png"
+                <img src="api2-lm2.imgnxb.com/images/3EVO99w9oUw/Twitter_2f8bb764-3e6c-46bc-88b6-4c38354cf7d5_1602839546807.png"
                     alt="-" width="32" height="32" loading="lazy" />
             </a>
         </li>
-    </ul>
+    </ul> --}}
     <ul class="footer-links">
         <li>
             <a href="about-us.html">Tentang {{ $website->website_name }}</a>
