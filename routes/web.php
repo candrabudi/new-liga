@@ -138,9 +138,11 @@ Route::prefix('secret')->as('secret.')->group(function () {
         });
 
         // 👥 Members
-        Route::prefix('members')->as('members.')->controller(SMemberController::class)->group(function () {
+        Route::prefix('/members')->as('members.')->controller(SMemberController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::get('list', 'list')->name('list');
+            Route::get('/list', 'list')->name('list');
+            Route::get('/{id}', 'show')->name('show'); // untuk load data edit
+            Route::put('/{id}', 'update')->name('update');
         });
 
         Route::prefix('finance-settings')->as('finance.')->controller(SFinanceController::class)->group(function () {
