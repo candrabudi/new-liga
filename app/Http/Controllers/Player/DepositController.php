@@ -21,7 +21,9 @@ class DepositController extends Controller
             ->select('payment_owners.*', 'payment_channels.name as channel_name', 'payment_channels.logo as channel_logo')
             ->get();
 
-        return view('mobile.deposit.bank', compact('paymentOwners'));
+        $financeSetting = FinanceSetting::first();
+
+        return view('mobile.deposit.bank', compact('paymentOwners', 'financeSetting'));
     }
 
     public function emoney()
@@ -33,7 +35,9 @@ class DepositController extends Controller
             ->select('payment_owners.*', 'payment_channels.name as channel_name', 'payment_channels.logo as channel_logo')
             ->get();
 
-        return view('mobile.deposit.emoney', compact('paymentOwners'));
+        $financeSetting = FinanceSetting::first();
+
+        return view('mobile.deposit.emoney', compact('paymentOwners', 'financeSetting'));
     }
 
     public function qris()
@@ -46,7 +50,9 @@ class DepositController extends Controller
             ->get()
             ->take(1);
 
-        return view('mobile.deposit.qris', compact('paymentOwners'));
+        $financeSetting = FinanceSetting::first();
+
+        return view('mobile.deposit.qris', compact('paymentOwners', 'financeSetting'));
     }
 
     public function storeBank(Request $request)

@@ -33,8 +33,8 @@
                                     </div>
                                 </div>
                                 <div class="deposit-amount-range">
-                                    <span id="deposit_amount_range_label">Min: 20,000.00 | Max:
-                                        9,999,999,999,999,000.00</span>
+                                    <span id="deposit_amount_range_label">Min: {{ number_format(round($financeSetting->min_deposit), 0, ',', '.') }} | Max:
+                                        {{ number_format(round($financeSetting->max_deposit), 0, ',', '.') }}</span>
                                 </div>
                             </div>
                         </div>
