@@ -32,8 +32,7 @@
             Hub. Kami
         </a>
 
-        {{-- <a href="/mobile/account-summary" --}}
-        <a href="/"
+        <a href="/mobile/account-summary"
             data-active="{{ request()->is('mobile/account-summary*') ? 'true' : 'false' }}">
             <img alt="My Account" height="25" loading="lazy"
                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/footer/my-account.svg?v=20250528"

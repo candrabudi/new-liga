@@ -54,6 +54,21 @@
                                     <span class="text-danger" id="error_website_maintenance"></span>
                                 </div>
 
+                                <!-- Input Live Chat -->
+                                <div class="mb-3">
+                                    <label class="form-label">Live Chat Script / URL</label>
+                                    <textarea name="link_livechat" id="link_livechat" class="form-control">{{ $website->link_livechat ?? '' }}</textarea>
+                                    <span class="text-danger" id="error_link_livechat"></span>
+                                </div>
+
+                                <!-- Input Telegram -->
+                                <div class="mb-3">
+                                    <label class="form-label">Link Telegram</label>
+                                    <input type="text" name="link_telegram" id="link_telegram" class="form-control"
+                                        value="{{ $website->link_telegram ?? '' }}">
+                                    <span class="text-danger" id="error_link_telegram"></span>
+                                </div>
+
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary" id="submitBtn">Simpan Website</button>
                                 </div>
@@ -79,7 +94,9 @@
             // Reset error
             messageBox.classList.add('d-none');
             messageBox.classList.remove('alert-success', 'alert-danger');
-            ['website_name', 'website_logo', 'website_favicon', 'website_description', 'website_maintenance']
+            ['website_name', 'website_logo', 'website_favicon', 'website_description', 'website_maintenance',
+                'link_livechat', 'link_telegram'
+            ]
             .forEach(field => {
                 document.getElementById('error_' + field).innerText = '';
             });
@@ -99,14 +116,12 @@
                     messageBox.classList.add('alert-success');
                     messageBox.innerText = 'Berhasil! ' + response.data.message;
 
-                    // Update preview menggunakan URL publik dari server
+                    // Update preview logo & favicon
                     if (response.data.logo_url) {
-                        let logoPreview = document.getElementById('logo_preview');
-                        logoPreview.src = response.data.logo_url;
+                        document.getElementById('logo_preview').src = response.data.logo_url;
                     }
                     if (response.data.favicon_url) {
-                        let faviconPreview = document.getElementById('favicon_preview');
-                        faviconPreview.src = response.data.favicon_url;
+                        document.getElementById('favicon_preview').src = response.data.favicon_url;
                     }
                 })
                 .catch(error => {

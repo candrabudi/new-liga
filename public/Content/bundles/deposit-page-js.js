@@ -1,5 +1,1125 @@
-$(()=>{window.initializeBonusSelection=()=>{const t=document.querySelector(".deposit_amount_display"),n=document.querySelector("#bonus_selection_container"),i=document.querySelector("#selected_bonus_title"),r=document.querySelector("#selected_bonus_amount");if(n){const f=n.dataset.currency;n.onclick=t=>{t.target.classList.contains("cancel_bonus_button")==!1&&a(n.dataset.selectedBonusRecId)};const e=document.querySelector("#cancel_bonus_button");e&&(e.onclick=()=>{s()});const o=(t,u,e,o,s,h,l,a,v)=>{var y=e,p=a;n.dataset.selected=!0;n.dataset.selectedBonusRecId=t;i.innerText=u;h=="FreeRound"&&(r.innerText=`${n.dataset.bonusFreeSpinCountText}: ${l} ${n.dataset.bonusFreeSpinCountTimesText}`);h=="BuyBonus"&&(r.innerText=`${n.dataset.bonusFreeSpinRoundText}: ${n.dataset.bonusFreeSpinRoundWorthText} ${f} ${window.formatNumber(new Decimal(p).toNumber())}`);e>0&&(r.innerText=`${n.dataset.bonusText}: ${f} ${window.formatNumber(new Decimal(parseFloat(y)).toNumber())}`);c(t,e,o,s,v,h,l,a)},s=()=>{const t=document.querySelectorAll(".bonus_selection_card");t.length>0&&Array.from(t).forEach(n=>{n.classList.remove("selected")});n.dataset.selected="false";n.dataset.selectedBonusRecId=n.dataset.emptyRecId;i.innerText=i.dataset.selectBonusText;l()},c=(n,i,r,u,f,e,o,s)=>{const a=document.querySelector("#bonus_amount_container"),v=document.querySelector("#bonus_recid_input"),h=document.querySelector("#deposit_bonus_amount_display");if(a&&(a.style.display=""),v&&(v.value=n),h){var c=i,l="BonusBalance";e=="FreeRound"&&(c=o,l="FreeRound");e=="BuyBonus"&&(c=s,l="BuyBonus");h.value=c;h.dataset.depositAmount=f;h.dataset.bonusType=l;h.dataset.bonusPercentage=r;h.dataset.bonusMaxPayout=u}t&&t.onkeyup()},l=()=>{const n=document.querySelector("#bonus_amount_container"),i=document.querySelector("#bonus_amount"),r=document.querySelector("#bonus_recid_input"),u=document.querySelector("#deposit_bonus_amount_display");n&&(n.style.display="none");i&&(i.innerText="");r&&(r.value="");u&&(u.value=0);t&&t.onkeyup()},h=()=>registerPopup({content:"Please try again in few minutes. Code:005BS"}),a=n=>{const i=document.querySelector(".deposit_amount_input"),t=document.querySelector("#bonus_selection_popup_container");if(t){let r=0;i&&(r=i.value==""?0:i.value);let f="/Claims/DepositBonusSelectionPopup";t.dataset.page=="register"&&(f="/Register/RegisterBonusSelectionPopup");$.ajax({type:"POST",url:f,data:JSON.stringify({selectedBonusRecId:n,depositAmount:u(r)}),contentType:"application/json; charset=utf-8",dataType:"html",success:n=>{t.innerHTML=n,window.initializeBonusSelectionPopup({page:t.dataset.page})},error:h})}};window.initializeBonusSelectionPopup=({page:n})=>{const t=document.querySelector("#bonus_selection_popup"),r=document.querySelector("#bonus_selection_popup_close_button"),i=document.querySelectorAll(".use_bonus_button");t.classList.add("open");r.onclick=()=>{t.classList.remove("open")};i.length>0&&Array.from(i).forEach(i=>{i.onclick||(i.onclick=()=>{const e=document.querySelectorAll(".bonus_selection_card"),r=document.querySelector(`.bonus_selection_card[data-id="${i.dataset.bonusId}"]`),f=document.querySelector(`.bonus_selection_card .bonus-button[data-bonus-id="${i.dataset.bonusId}"]`);if(i.dataset.availableForWeb=="false"){window.open("/download-apk","_blank");return}if(e.length>0&&Array.from(e).forEach(n=>{n.dataset.id!=i.dataset.bonusId&&n.classList.remove("selected")}),r)if(r.classList.contains("selected"))f.innerText=i.dataset.useText,s();else{const s=document.querySelector(".deposit_amount_input");let e=0;s&&(e=s.value);n=="register"&&(r.classList.add("selected"),f.innerText=i.dataset.cancelText,o(i.dataset.bonusId,i.dataset.bonusTitle,i.dataset.bonusAmount,i.dataset.bonusPercentage,i.dataset.bonusMaxPayout,i.dataset.freeSpinType,i.dataset.totalFreeSpin,i.dataset.totalBetAmount,u(e)),setTimeout(()=>{t.classList.remove("open")},1e3));n=="deposit"&&$.ajax({type:"POST",url:"/Claims/IsAllowActivateBonus",data:JSON.stringify({recId:i.dataset.bonusId,depositAmount:u(e)}),contentType:"application/json; charset=utf-8",dataType:"json",success:n=>{n.errorCode==0?(r.classList.add("selected"),f.innerText=i.dataset.cancelText,o(i.dataset.bonusId,i.dataset.bonusTitle,i.dataset.bonusAmount,i.dataset.bonusPercentage,i.dataset.bonusMaxPayout,i.dataset.freeSpinType,i.dataset.totalFreeSpin,i.dataset.totalBetAmount,u(e)),setTimeout(()=>{t.classList.remove("open")},1e3)):registerPopup({contentTitle:n.statusText,content:n.message})},error:h})}})});const f=document.querySelectorAll(".bonus-selection-card-footer");f.forEach(n=>{n.addEventListener("click",()=>{n.classList.toggle("expand");const t=n.nextElementSibling;t&&t.classList.contains("bonus-selection-card-detail")&&t.classList.toggle("expand")})})};const u=n=>n==0?n:n.replace(/\D/g,"")}}});
-$(()=>{window.initializeInputAmount=n=>{const r=()=>{if(n.domElement.toAccountSelect){const t=n.domElement.toAccountSelect.options[n.domElement.toAccountSelect.selectedIndex];if(t)return t.dataset.adminFee}return null},t=n=>new Decimal(Math.trunc(n.mul(100))).div(100),i=n=>new Decimal(n).mul(window.conversionRate),u=(n,i,r,u)=>r.equals(0)||u.equals(0)?n:(n=t(i.mul(r)),n.greaterThan(u))?u.toNumber():n.toNumber();$(n.domElement.inputAmountDisplay).mask(`#${window.thousandSeparator}##0`,{reverse:!0});const f=()=>{if(n.domElement.input.dataset.inputType!=="decimal"){const t=parseFloat(n.domElement.inputAmountDisplay.value.replace(/[.,]/g,""))||0;n.domElement.input.value=i(t)}let f=new Decimal(parseFloat(n.domElement.input.value)||0);if(n.domElement.transferAmounts&&n.domElement.transferAmounts.forEach(t=>{t.innerHTML=`<span>${n.currency}</span> ${window.formatNumber(f.toNumber())}`}),n.domElement.toAccountSelect){const t=n.domElement.toAccountSelect.options[n.domElement.toAccountSelect.selectedIndex];if(n.domElement.fastDepositNumber&&n.domElement.uniqueCode&&t.dataset.highPriority==="false"){const r=parseFloat(n.domElement.fastDepositNumber.value)||0,t=i(r);n.domElement.uniqueCode.innerHTML=`<span>${n.currency}</span> ${window.formatNumber(t.toNumber())}`;f=f.plus(t);Array.from(n.domElement.transferAmounts).filter(n=>n.dataset.location==="summary").forEach(t=>{t.innerHTML=`<span>${n.currency}</span> ${window.formatNumber(f.toNumber())}`})}}if(n.domElement.netCreditedAmount){const e=r();let i=f;if(e){const n=new Decimal(e.replaceAll(",","").replaceAll("%",""));if(e.indexOf("%")>=0){const r=new Decimal(1).minus(n.div(100));i=t(i.mul(r))}else i=i.minus(n)}if(n.domElement.bonusAmountDisplay)if(n.domElement.bonusAmountDisplay.dataset.depositAmount!=n.domElement.input.value){const n=document.querySelector("#cancel_bonus_button");n&&n.click()}else{const t=parseFloat(n.domElement.bonusAmountDisplay.value)||0,e=new Decimal(n.domElement.bonusAmountDisplay.dataset.bonusPercentage).div(100),o=new Decimal(n.domElement.bonusAmountDisplay.dataset.bonusMaxPayout),r=u(t,i,e,o);let f=`<span>${n.currency}</span> ${window.formatNumber(new Decimal(r).toNumber())}`;n.domElement.bonusAmountDisplay.dataset.bonusType=="BonusBalance"&&t>0&&(i=i.plus(r));n.domElement.bonusAmountDisplay.dataset.bonusType=="FreeRound"&&(f=`<span>${n.translations.bonusFreeSpin}</span> ${t} ${n.translations.bonusFreeSpinTimes}`);n.domElement.bonusAmountDisplay.dataset.bonusType=="BuyBonus"&&(f=`<span>${n.translations.bonusGameWorth} ${n.currency}</span> ${window.formatNumber(r.toNumber())}`);n.domElement.bonusAmount.innerHTML=f}i<0&&(i=new Decimal(0));n.domElement.netCreditedAmount.innerHTML=`<span>${n.currency}</span> ${window.formatNumber(i.toNumber())}`}if(n.domElement.remainingBalance){const t=new Decimal(n.currentBalance),i=t.minus(f);n.domElement.remainingBalance.innerHTML=`<span>${n.currency} ${window.formatNumber(i.toNumber())}</span>`}};n.domElement.inputAmountDisplay&&(n.domElement.inputAmountDisplay.onkeyup=f,n.domElement.inputAmountDisplay.onkeydown=t=>{if(t.key==="."){const i=n.domElement.inputAmountDisplay.value;(n.domElement.inputAmountDisplay.dataset.inputType!=="decimal"||i.length===0||i.indexOf(".")>=0)&&t.preventDefault();return}isNaN(t.key)&&["Backspace","ArrowLeft","ArrowRight"].includes(t.key)==!1&&t.preventDefault()},n.domElement.inputAmountDisplay.onkeyup())}});
-$(()=>{window.initializeBankInfo=n=>{const t=document.querySelector("#bank_info"),i=t.querySelector("#bank_info_name"),r=t.querySelector("#bank_info_account_no"),u=t.querySelector("#bank_info_account_no_header"),f=document.querySelectorAll(".copy_bank_account_button"),e=function(){const r=t.querySelector("#bank_info_logo"),n=t.querySelector("#bank_info_logo_footer"),u=({container:n,imageSrc:t})=>{n.style.display="none";const r=document.createElement("img");r.src=t;r.onload=function(){r.parentElement&&i&&(i.style.display="none")};r.onerror=function(){r.parentElement&&(n.style.display="none",r.style.display="none",i&&(i.style.display="block"))};n.childElementCount>0&&n.removeChild(n.firstChild);n.appendChild(r)};return(i,f)=>{if(r){const e=`${r.dataset.imagePath}${i.replace(/ /g,"-").toLowerCase()}.svg`;u({container:r,imageSrc:e});n&&u({container:n,imageSrc:e});t.dataset.hasQrCode="false";f&&f.withQrCode?(t.dataset.hasQrCode="true",r.style.display="block",n&&(n.style.display="none")):(r.style.display="none",n&&(n.style.display="block"))}}}(),o=function(){const n=t.querySelector("#bank_info_account_name"),o=t.querySelector("#bank_info_account_name_header"),s=t.querySelector("#bank_info_account_number_container"),h=t.querySelector("#bank_info_account_number_header_container"),c=document.querySelector("#bank_info_account_no_hidden_input"),l=document.querySelector("#transaction_receipt_container");return a=>{if(!a||!a.value||a.disabled){t.hidden=!0;return}t.hidden=!1;t.dataset.highPriority=a.dataset.highPriority;l&&(l.hidden=a.dataset.highPriority==="true");const v=a.dataset.accountNumber.indexOf("*")>=0;f.forEach(n=>n.hidden=v);a&&a.dataset.bankName&&(e(a.dataset.bankName,{withQrCode:!!a.dataset.qrCode}),i&&(i.innerText=a.dataset.bankName),n&&(n.style.display="none",n.innerText=a.dataset.accountHolder||n.dataset.label),o&&(o.style.display="none",o.innerText=a.dataset.accountHolder||o.dataset.label),r&&(s.style.display="none",r.innerText=a.dataset.accountNumber,a.dataset.qrCode!==""&&a.dataset.highPriority==="false"&&(s.style.display="flex",n&&(n.style.display="block"))),u&&(h.style.display="none",u.innerText=a.dataset.accountNumber,a.dataset.qrCode===""&&a.dataset.highPriority==="false"&&(h.style.display="flex",o&&(o.style.display="block"))),c&&(c.value=a.dataset.accountNumber))}}(),s=function(){const t=document.querySelector("#qr_code_note"),n=document.querySelector("#download_qr_code_button"),i=document.querySelector("#bank_qr_code");return(r,u)=>{if(t&&(t.style.display="none"),n&&(n.style.display="none"),i&&(i.innerHTML="",r&&u)){const f=document.createElement("img");f.src=`data:image/${r};base64,${u}`;i.appendChild(f);t&&(t.style.display="block");n&&(n.download="qr."+r,n.style.display="flex",n.setAttribute("href",f.src))}}}();Array.from(n.domElement.bankSelect.options).forEach(n=>{if(n.dataset.supportedBanks){n._supportedBanks=n.dataset.supportedBanks.split(";");return}n._supportedBanks=[]});f.forEach(t=>{$(t).popover({content:n.translations.copied,placement:"top",trigger:"manual"}),t.onclick=()=>{if(navigator.clipboard){let n;r&&(n=r);u&&(n=u);navigator.clipboard.writeText(n.innerText.replaceAll("-","")).then(()=>{const n=$(t);n.popover("show");setTimeout(()=>n.popover("hide"),500)}).catch(n=>console.log("Error when copying account number: "+n))}}});n.domElement.bankSelect.onchange=function(){const i=document.querySelector(".deposit_amount_display"),r=document.querySelector("#pulsa_deposit_method_field"),f=document.querySelectorAll(".admin_fee_display"),u=document.querySelector("#conversion_rate_display");return()=>{i&&i.onkeyup&&i.onkeyup();const e=n.domElement.bankSelect.options[n.domElement.bankSelect.selectedIndex];if(!e){t.hidden=!0;return}if(r&&($(r).show(),e&&e.dataset.isAutoApprove==="true"&&($(r).hide(),$('.pulsa_deposit_method_radio_button[value="OTHER"]').click())),o(e),f.forEach(t=>{const i=e.dataset.adminFee||"0";if(i.indexOf("%")>=0){t.innerText=i;return}t.innerText=`${n.currency} ${i}`}),u){let n="";const t=parseFloat(e.dataset.conversionRate);t>0&&(n=`1 Unit = ${t} ${u.dataset.currency}`);u.innerText=n}const h=e.dataset.qrCode,c=e.dataset.qrCodeFormat&&e.dataset.qrCodeFormat.replace(".","");if(s(c,h),n.domElement.bankSelect.displayDepositAmountRange&&n.domElement.bankSelect.displayDepositAmountRange(e),n.paymentType==="QR"){const n=document.querySelector("#unique_code_container");n&&(n.style.display=e.dataset.highPriority==="false"?"":"none")}}}();n.domElement.bankSelect.onchange()}});
-$(()=>{window.initializePaymentAccountSelection=n=>{const i=document.querySelector("#available_payment_accounts_popup"),t=document.querySelector("#available_payment_accounts_container"),r=i=>{const r=document.createElement("div");r.className="available-payment-account-item available_payment_account_item";r.dataset.bankId=i.bankId;r.dataset.highPriority=i.highPriority;r.dataset.selected=i.isSelected;r.dataset.isMaintenance=i.isMaintenance;r._selectAccount=i.selectAccount;const e=document.createElement("div");e.className="available-payment-account-status";e.dataset.isOnline=i.isOnline;e.dataset.bankId=i.bankId;const u=document.createElement("img");u.className="available-payment-account-logo";u.dataset.bankId=i.bankId;u.src=i.bankLogo;u.alt=i.bankName;u.onerror=()=>u.src=t.dataset.defaultPaymentAccountIcon;const o=document.createElement("div");o.className="available-payment-account-name";o.dataset.bankId=i.bankId;o.innerText=i.name;const s=document.createElement("div");s.className="available-payment-account-sub-info";s.dataset.bankId=i.bankId;s.innerText=i.adminFee?`${n.translations.adminFee}: ${i.adminFee}`:`${i.accountHolder||"-"}`;const f=document.createElement("div");f.className="available-payment-account-info";f.dataset.bankId=i.bankId;const h=document.createElement("div");h.className="available-payment-account-action";const c=document.createElement("div");if(c.className="available-payment-account-checkbox",i.isSelected&&c.classList.add("checked"),h.appendChild(c),f.appendChild(o),f.appendChild(s),r.appendChild(e),r.appendChild(u),r.appendChild(f),i.highPriority==="true"){const t=document.createElement("div");t.className="available-payment-account-label";t.innerText=n.translations.instantLabel;i.isMaintenance==="true"&&(t.innerText=n.translations.maintenanceLabel);r.appendChild(t)}if(r.appendChild(h),i.isLastUsed==="true"){const t=document.createElement("div");t.className="last-used-account";t.innerText=n.translations.lastUsed;r.appendChild(t)}return r},u=i=>{if(!(i.length<=0)){const u=document.createElement("div");u.className="available-payment-account-group-label";u.innerHTML=`${n.translations.recommended} <span>(${n.translations.instantProcess})</span>`;t.appendChild(u);i.sort((n,t)=>n.isMaintenance===t.isMaintenance?0:n.isMaintenance==="true"&&t.isMaintenance!=="true"?1:-1);i.forEach(n=>{t.appendChild(r(n))})}},f=(n,t)=>{const r=[],u=[];Array.from(n.options).forEach(t=>{if(t.disabled!==!0){const i={name:t.innerText,bankId:t.value,bankLogo:t.dataset.bankLogo,bankName:t.dataset.bankName,adminFee:t.dataset.adminFee,highPriority:t.dataset.highPriority,isOnline:t.dataset.isOnline,isMaintenance:t.dataset.isMaintenance,isSelected:n.value===t.value,accountHolder:t.dataset.accountHolder,isLastUsed:t.dataset.isLastUsed,selectAccount:t=>{n.value=t,n.onchange&&n.onchange()}};t.dataset.highPriority==="true"?r.push(i):u.push(i)}});t(r,u);i.classList.add("show")};if(i&&(i.onclick=n=>{n.target.id===i.id&&i.classList.remove("show")},t))$(t).on("click",".available_payment_account_item",n=>{if(n.currentTarget._selectAccount){if(n.currentTarget.dataset.isMaintenance==="true"){n.preventDefault();return}n.currentTarget._selectAccount(n.currentTarget.dataset.bankId)}i.classList.remove("show")});const e=(n,t)=>{const i=document.createElement("div");i.classList.add("pseudo_event_listener");i.style.position="absolute";i.addEventListener("click",t);const r=()=>{const t=n.getBoundingClientRect();i.style.height=`${t.height}px`;i.style.width=`${t.width}px`};r();n.parentElement.insertBefore(i,n);n.style.pointerEvents="none";const u=()=>{i.timeoutId&&clearTimeout(i.timeoutId),i.timeoutId=setTimeout(r,300)};window.addEventListener("resize",u)};if(n.domElement.companyAccountSelect){const i=i=>{if(!(i.length<=0)){const u=document.createElement("div");u.className="available-payment-account-group-label";u.innerText=n.translations.others;t.appendChild(u);i.forEach(n=>{t.appendChild(r(n))})}},o=(r,f)=>{t.textContent="",n.paymentType==="BANK"?(i(f),u(r)):(u(r),i(f))};e(n.domElement.companyAccountSelect,()=>{f(n.domElement.companyAccountSelect,o)})}if(n.domElement.playerAccountSelect){const v=(i,f)=>{if(t.textContent="",i.length==0&&f.length==0){const i=document.createElement("div");i.className="available-payment-account-group-label";i.innerHTML=n.translations.paymentAccountSelectionTitle;t.appendChild(i);const r=document.createElement("div");r.className="empty-payment-account-note";r.innerText=n.translations.emptyPaymentAccountNote;t.appendChild(r)}if(u(i),f.length>0){const i=document.createElement("div");i.className="available-payment-account-group-label";i.innerHTML=n.translations.paymentAccountSelectionTitle;t.appendChild(i);f.forEach(n=>{t.appendChild(r(n))})}const e=document.createElement("div");e.className="available-payment-account-footer";e.id="add_payment_account_account_item";const o=document.createElement("img");o.className="available-payment-account-logo";o.src=t.dataset.defaultPaymentAccountIcon;o.alt=n.translations.addAccount;e.appendChild(o);const s=document.createElement("div");s.className="available-payment-account-info";s.innerHTML=n.translations.addAccount;e.appendChild(s);const h=document.createElement("div");h.className="available-payment-account-action";const c=document.createElement("div");c.className="new-payment-account-icon-container";const l=document.createElement("img");l.src=`${n.newPaymentAccountIconPath}`;c.appendChild(l);h.appendChild(c);e.appendChild(h);t.appendChild(e)};e(n.domElement.playerAccountSelect,()=>{f(n.domElement.playerAccountSelect,v)});const o=document.querySelector("#payment_account_popup"),s=document.querySelector("#payment_account_container"),c=document.querySelector("#popup_loader_container"),l=()=>registerPopup({content:"Please try again in few minutes. Code:008PA"});window.onAddAccountAjaxRequestSuccess=t=>{t.status===!0&&($.ajax({type:"POST",url:`/Wallet/AvailablePlayerPaymentAccounts`,data:JSON.stringify({paymentType:n.paymentType}),contentType:"application/json; charset=utf-8",dataType:"json",success:t=>{const i=n.domElement.playerAccountSelect;i.innerHTML="";t.forEach(t=>{const r=document.createElement("option");r.value=[t.paymentName,t.accountNumber].join(" | ");r.dataset.bankName=t.paymentName;r.dataset.accountHolder=t.accountHolder;r.dataset.accountNumber=t.accountNumber;r.dataset.isLastUsed=t.isUsedForLastDeposit;r.dataset.bankLogo=`${n.bankLogoDirPath}${t.paymentName.replace(" ","-")}.webp`;r.innerHTML=[t.paymentName,window.formatAccountNumber(t.accountNumber)].join(" | ");i.dataset.checkForWithdrawalAvailability&&(r.disabled=!t.allowToWithdraw,r.dataset.adminFee=t.adminFee);i.appendChild(r)})},error:l}),o.classList.contains("show")&&o.classList.remove("show")),registerPopup({content:t.message,onClose:()=>{t.status!==!0}})};window.onAddAccountAjaxRequestBegin=()=>{const n=document.querySelectorAll(".btn-primary");$(n).prop("disabled",!0)};window.onAddAccountAjaxRequestComplete=()=>{const n=document.querySelectorAll(".btn-primary");$(n).prop("disabled",!1)};const h=document.querySelector("#add_payment_account_button");if(h){h.onclick=()=>{i.classList.contains("show")&&i.classList.remove("show"),o.classList.add("show"),c.classList.add("display"),s.classList.remove("display"),s.innerHTML="",$.ajax({type:"POST",url:`/Wallet/PaymentAccountCreationForm`,data:JSON.stringify({paymentType:n.paymentType}),contentType:"application/json; charset=utf-8",dataType:"html",success:n=>{s.innerHTML=n;c.classList.remove("display");s.classList.add("display");$.validator.unobtrusive.parse("#payment_account_container form");const t=document.querySelector("#payment_account_number_input");t&&$(t).mask("0000-0000-0000-0000-0000");window.initializeOtp()},error:l})};n.domElement.playerAccountSelect.options.length===0&&h.click();$(t).on("click","#add_payment_account_account_item",()=>{h.click()})}o.onclick=n=>{n.target.id===o.id&&o.classList.remove("show")};const a=document.querySelector("#close_payment_account_popup");a&&(a.onclick=()=>{o.classList.remove("show")})}}});
-$(()=>{const n=(n,t)=>{let i=`/deposit/`+n;t&&(i=`/${t}${i}`);window.location.href=i};window.initializeDepositPage=t=>{const o=document.querySelector("#payment_method_selection"),s=o.querySelectorAll('input[type="radio"]');s.forEach(i=>{i.onchange=i=>n(i.target.value,t.platform)});const h=document.querySelector(".deposit_amount_input"),c=document.querySelector(".deposit_amount_display"),i=document.querySelector("#deposit_to_bank_select");window.initializeInputAmount({domElement:{input:h,inputAmountDisplay:c,toAccountSelect:i,transferAmounts:document.querySelectorAll(".transfer_amount"),netCreditedAmount:document.querySelector("#net_credited_amount"),fastDepositNumber:document.querySelector("#fast_deposit_number"),uniqueCode:document.querySelector("#unique_code"),bonusAmountDisplay:document.querySelector("#deposit_bonus_amount_display"),bonusAmount:document.querySelector("#bonus_amount")},currency:t.currency,translations:{bonusFreeSpin:t.translations.bonusFreeSpin,bonusFreeSpinTimes:t.translations.bonusFreeSpinTimes,bonusGameWorth:t.translations.bonusGameWorth}});const u=document.querySelector("#deposit_form"),r=$(u);r.submit(function(n){n.preventDefault();r.valid()&&document.depositForm.submit()});const f=document.querySelector("#transaction_receipt_input");if(f){const n=document.querySelector("#upload_success_indicator");n.style.display="none";f.onchange=()=>{f.files.length>0&&(n.style.display="block")}}if(i){const n=document.querySelector("#deposit_amount_range_label");i.displayDepositAmountRange=t=>{const i=t.dataset.depositAmountRange;n&&(n.textContent="",i&&(n.textContent=i))};window.initializeBankInfo({domElement:{bankSelect:i},currency:t.currency,translations:t.translations,paymentType:t.paymentType});i.dataset.qr&&i.onchange&&i.onchange()}if(t.paymentType==="BANK"){const n=document.querySelector("#from_bank_account_select");n&&(n.onchange=()=>{if(n.options.length!==0){const e=n.options[n.selectedIndex],[t]=e.text.split(" | ");Array.from(i.options).forEach(n=>{n.disabled=!1,n.style.display="",n._supportedBanks.length>0&&n._supportedBanks.includes(t)===!1&&(n.disabled=!0,n.style.display="none")});const o=()=>{const r=Array.from(i.options).find(n=>{if(n.disabled||n.dataset.isMaintenance==="true")return!1;const[i]=n.text.split(" | ");return t===i});if(r)return r;const u=Array.from(i.options).find(n=>n.disabled||n.dataset.isMaintenance==="true"?!1:n.dataset.highPriority!=="true");if(u)return u;const n=i.options[i.selectedIndex];return n&&(n.disabled||n.dataset.isMaintenance==="true")?Array.from(i.options).find(n=>n.disabled===!1&&n.dataset.isMaintenance!=="true"):undefined},f=o();f&&(i.value=f.value);i.onchange&&i.onchange();u&&r.valid()}},n.onchange(),window.initializePaymentAccountSelection({domElement:{companyAccountSelect:i,playerAccountSelect:n},currency:t.currency,translations:t.translations,paymentType:t.paymentType,bankLogoDirPath:t.bankLogoDirPath,newPaymentAccountIconPath:t.newPaymentAccountIconPath}))}if(t.paymentType==="VA"){const n=document.querySelector("#from_bank_account_select");n&&window.initializePaymentAccountSelection({domElement:{companyAccountSelect:i,playerAccountSelect:n},currency:t.currency,translations:t.translations,paymentType:t.paymentType,bankLogoDirPath:t.bankLogoDirPath,newPaymentAccountIconPath:t.newPaymentAccountIconPath})}if(t.paymentType==="EMONEY"){const n=document.querySelector("#from_emoney_account_select");n&&(n.onchange=()=>{if(n.options.length!==0){const e=n.options[n.selectedIndex],[t]=e.text.split(" | ");Array.from(i.options).forEach(n=>{n.disabled=!1,n.style.display="",n._supportedBanks.length>0&&n._supportedBanks.includes(t)===!1&&(n.disabled=!0,n.style.display="none")});const o=()=>{const r=Array.from(i.options).find(n=>n.disabled||n.dataset.isMaintenance==="true"?!1:n.dataset.highPriority==="true");if(r)return r;const u=Array.from(i.options).find(n=>{if(n.disabled||n.dataset.isMaintenance==="true")return!1;const[i]=n.text.split(" | ");return t===i});if(u)return u;const n=i.options[i.selectedIndex];return n&&(n.disabled||n.dataset.isMaintenance==="true")?Array.from(i.options).find(n=>n.disabled===!1&&n.dataset.isMaintenance!=="true"):undefined},f=o();f&&(i.value=f.value);i.onchange&&i.onchange();u&&r.valid()}},n.onchange(),window.initializePaymentAccountSelection({domElement:{companyAccountSelect:i,playerAccountSelect:n},currency:t.currency,translations:t.translations,paymentType:t.paymentType,bankLogoDirPath:t.bankLogoDirPath,newPaymentAccountIconPath:t.newPaymentAccountIconPath}))}if(t.paymentType==="PULSA"){const n=document.querySelectorAll(".pulsa_deposit_method_radio_button");if(n.length){const t=$(document.querySelector("#card_number_field")),r=$(document.querySelector("#telephone_number_field")),u=()=>{if($(".pulsa_deposit_method_radio_button:checked").val().toLowerCase()==="phone"){t.hide();r.show();return}t.show();r.hide()};$(n).on("change",u);u();i.onchange&&i.onchange()}}if(t.paymentType==="CRYPTO"){const n=document.querySelector("#from_crypto_payment_name_select");n&&(n.onchange=()=>{if(n.options.length!==0){const t=n.value;Array.from(i.options).forEach(n=>{n.disabled=!1,n.style.display="",n._supportedBanks.length>0&&n._supportedBanks.includes(t)===!1&&(n.disabled=!0,n.style.display="none")});const e=()=>{const r=Array.from(i.options).find(n=>{if(n.disabled||n.dataset.isMaintenance==="true")return!1;const[i]=n.text.split(" | ");return t===i});if(r)return r;const n=i.options[i.selectedIndex];return n&&(n.disabled||n.dataset.isMaintenance==="true")?Array.from(i.options).find(n=>n.disabled===!1&&n.dataset.isMaintenance!=="true"):undefined},f=e();f&&(i.value=f.value);i.onchange&&i.onchange();u&&r.valid()}},n.onchange())}(t.paymentType==="QR"||t.paymentType==="PULSA"||t.paymentType==="CRYPTO")&&window.initializePaymentAccountSelection({domElement:{companyAccountSelect:i},currency:t.currency,translations:t.translations,paymentType:t.paymentType,bankLogoDirPath:t.bankLogoDirPath,newPaymentAccountIconPath:t.newPaymentAccountIconPath});const e=document.querySelector("#deposit_summary_header");if(e){const t=document.querySelector("#deposit_summary_detail_toggler"),n=document.querySelector("#deposit_summary_content");e.onclick=()=>{const i=t.querySelector("i");n.classList.contains("expand")?(n.classList.remove("expand"),i.classList.remove("glyphicon-chevron-up"),i.classList.add("glyphicon-chevron-down")):(n.classList.add("expand"),i.classList.remove("glyphicon-chevron-down"),i.classList.add("glyphicon-chevron-up"))}}}});
+$(() => {
+  window.initializeBonusSelection = () => {
+    const t = document.querySelector(".deposit_amount_display"),
+      n = document.querySelector("#bonus_selection_container"),
+      i = document.querySelector("#selected_bonus_title"),
+      r = document.querySelector("#selected_bonus_amount");
+    if (n) {
+      const f = n.dataset.currency;
+      n.onclick = (t) => {
+        t.target.classList.contains("cancel_bonus_button") == !1 &&
+          a(n.dataset.selectedBonusRecId);
+      };
+      const e = document.querySelector("#cancel_bonus_button");
+      e &&
+        (e.onclick = () => {
+          s();
+        });
+      const o = (t, u, e, o, s, h, l, a, v) => {
+          var y = e,
+            p = a;
+          n.dataset.selected = !0;
+          n.dataset.selectedBonusRecId = t;
+          i.innerText = u;
+          h == "FreeRound" &&
+            (r.innerText = `${n.dataset.bonusFreeSpinCountText}: ${l} ${n.dataset.bonusFreeSpinCountTimesText}`);
+          h == "BuyBonus" &&
+            (r.innerText = `${n.dataset.bonusFreeSpinRoundText}: ${
+              n.dataset.bonusFreeSpinRoundWorthText
+            } ${f} ${window.formatNumber(new Decimal(p).toNumber())}`);
+          e > 0 &&
+            (r.innerText = `${n.dataset.bonusText}: ${f} ${window.formatNumber(
+              new Decimal(parseFloat(y)).toNumber()
+            )}`);
+          c(t, e, o, s, v, h, l, a);
+        },
+        s = () => {
+          const t = document.querySelectorAll(".bonus_selection_card");
+          t.length > 0 &&
+            Array.from(t).forEach((n) => {
+              n.classList.remove("selected");
+            });
+          n.dataset.selected = "false";
+          n.dataset.selectedBonusRecId = n.dataset.emptyRecId;
+          i.innerText = i.dataset.selectBonusText;
+          l();
+        },
+        c = (n, i, r, u, f, e, o, s) => {
+          const a = document.querySelector("#bonus_amount_container"),
+            v = document.querySelector("#bonus_recid_input"),
+            h = document.querySelector("#deposit_bonus_amount_display");
+          if ((a && (a.style.display = ""), v && (v.value = n), h)) {
+            var c = i,
+              l = "BonusBalance";
+            e == "FreeRound" && ((c = o), (l = "FreeRound"));
+            e == "BuyBonus" && ((c = s), (l = "BuyBonus"));
+            h.value = c;
+            h.dataset.depositAmount = f;
+            h.dataset.bonusType = l;
+            h.dataset.bonusPercentage = r;
+            h.dataset.bonusMaxPayout = u;
+          }
+          t && t.onkeyup();
+        },
+        l = () => {
+          const n = document.querySelector("#bonus_amount_container"),
+            i = document.querySelector("#bonus_amount"),
+            r = document.querySelector("#bonus_recid_input"),
+            u = document.querySelector("#deposit_bonus_amount_display");
+          n && (n.style.display = "none");
+          i && (i.innerText = "");
+          r && (r.value = "");
+          u && (u.value = 0);
+          t && t.onkeyup();
+        },
+        h = () =>
+          registerPopup({
+            content: "Please try again in few minutes. Code:005BS",
+          }),
+        a = (n) => {
+          const i = document.querySelector(".deposit_amount_input"),
+            t = document.querySelector("#bonus_selection_popup_container");
+          if (t) {
+            let r = 0;
+            i && (r = i.value == "" ? 0 : i.value);
+            let f = "/Claims/DepositBonusSelectionPopup";
+            t.dataset.page == "register" &&
+              (f = "/Register/RegisterBonusSelectionPopup");
+            $.ajax({
+              type: "POST",
+              url: f,
+              data: JSON.stringify({
+                selectedBonusRecId: n,
+                depositAmount: u(r),
+              }),
+              contentType: "application/json; charset=utf-8",
+              dataType: "html",
+              success: (n) => {
+                (t.innerHTML = n),
+                  window.initializeBonusSelectionPopup({
+                    page: t.dataset.page,
+                  });
+              },
+              error: h,
+            });
+          }
+        };
+      window.initializeBonusSelectionPopup = ({ page: n }) => {
+        const t = document.querySelector("#bonus_selection_popup"),
+          r = document.querySelector("#bonus_selection_popup_close_button"),
+          i = document.querySelectorAll(".use_bonus_button");
+        t.classList.add("open");
+        r.onclick = () => {
+          t.classList.remove("open");
+        };
+        i.length > 0 &&
+          Array.from(i).forEach((i) => {
+            i.onclick ||
+              (i.onclick = () => {
+                const e = document.querySelectorAll(".bonus_selection_card"),
+                  r = document.querySelector(
+                    `.bonus_selection_card[data-id="${i.dataset.bonusId}"]`
+                  ),
+                  f = document.querySelector(
+                    `.bonus_selection_card .bonus-button[data-bonus-id="${i.dataset.bonusId}"]`
+                  );
+                if (i.dataset.availableForWeb == "false") {
+                  window.open("/download-apk", "_blank");
+                  return;
+                }
+                if (
+                  (e.length > 0 &&
+                    Array.from(e).forEach((n) => {
+                      n.dataset.id != i.dataset.bonusId &&
+                        n.classList.remove("selected");
+                    }),
+                  r)
+                )
+                  if (r.classList.contains("selected"))
+                    (f.innerText = i.dataset.useText), s();
+                  else {
+                    const s = document.querySelector(".deposit_amount_input");
+                    let e = 0;
+                    s && (e = s.value);
+                    n == "register" &&
+                      (r.classList.add("selected"),
+                      (f.innerText = i.dataset.cancelText),
+                      o(
+                        i.dataset.bonusId,
+                        i.dataset.bonusTitle,
+                        i.dataset.bonusAmount,
+                        i.dataset.bonusPercentage,
+                        i.dataset.bonusMaxPayout,
+                        i.dataset.freeSpinType,
+                        i.dataset.totalFreeSpin,
+                        i.dataset.totalBetAmount,
+                        u(e)
+                      ),
+                      setTimeout(() => {
+                        t.classList.remove("open");
+                      }, 1e3));
+                    n == "deposit" &&
+                      $.ajax({
+                        type: "POST",
+                        url: "/Claims/IsAllowActivateBonus",
+                        data: JSON.stringify({
+                          recId: i.dataset.bonusId,
+                          depositAmount: u(e),
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: (n) => {
+                          n.errorCode == 0
+                            ? (r.classList.add("selected"),
+                              (f.innerText = i.dataset.cancelText),
+                              o(
+                                i.dataset.bonusId,
+                                i.dataset.bonusTitle,
+                                i.dataset.bonusAmount,
+                                i.dataset.bonusPercentage,
+                                i.dataset.bonusMaxPayout,
+                                i.dataset.freeSpinType,
+                                i.dataset.totalFreeSpin,
+                                i.dataset.totalBetAmount,
+                                u(e)
+                              ),
+                              setTimeout(() => {
+                                t.classList.remove("open");
+                              }, 1e3))
+                            : registerPopup({
+                                contentTitle: n.statusText,
+                                content: n.message,
+                              });
+                        },
+                        error: h,
+                      });
+                  }
+              });
+          });
+        const f = document.querySelectorAll(".bonus-selection-card-footer");
+        f.forEach((n) => {
+          n.addEventListener("click", () => {
+            n.classList.toggle("expand");
+            const t = n.nextElementSibling;
+            t &&
+              t.classList.contains("bonus-selection-card-detail") &&
+              t.classList.toggle("expand");
+          });
+        });
+      };
+      const u = (n) => (n == 0 ? n : n.replace(/\D/g, ""));
+    }
+  };
+});
+$(() => {
+  window.initializeInputAmount = (n) => {
+    const r = () => {
+        if (n.domElement.toAccountSelect) {
+          const t =
+            n.domElement.toAccountSelect.options[
+              n.domElement.toAccountSelect.selectedIndex
+            ];
+          if (t) return t.dataset.adminFee;
+        }
+        return null;
+      },
+      t = (n) => new Decimal(Math.trunc(n.mul(100))).div(100),
+      i = (n) => new Decimal(n).mul(window.conversionRate),
+      u = (n, i, r, u) =>
+        r.equals(0) || u.equals(0)
+          ? n
+          : ((n = t(i.mul(r))), n.greaterThan(u))
+          ? u.toNumber()
+          : n.toNumber();
+    $(n.domElement.inputAmountDisplay).mask(`#${window.thousandSeparator}##0`, {
+      reverse: !0,
+    });
+    const f = () => {
+      if (n.domElement.input.dataset.inputType !== "decimal") {
+        const t =
+          parseFloat(
+            n.domElement.inputAmountDisplay.value.replace(/[.,]/g, "")
+          ) || 0;
+        n.domElement.input.value = i(t);
+      }
+      let f = new Decimal(parseFloat(n.domElement.input.value) || 0);
+      if (
+        (n.domElement.transferAmounts &&
+          n.domElement.transferAmounts.forEach((t) => {
+            t.innerHTML = `<span>${n.currency}</span> ${window.formatNumber(
+              f.toNumber()
+            )}`;
+          }),
+        n.domElement.toAccountSelect)
+      ) {
+        const t =
+          n.domElement.toAccountSelect.options[
+            n.domElement.toAccountSelect.selectedIndex
+          ];
+        if (
+          n.domElement.fastDepositNumber &&
+          n.domElement.uniqueCode &&
+          t.dataset.highPriority === "false"
+        ) {
+          const r = parseFloat(n.domElement.fastDepositNumber.value) || 0,
+            t = i(r);
+          n.domElement.uniqueCode.innerHTML = `<span>${
+            n.currency
+          }</span> ${window.formatNumber(t.toNumber())}`;
+          f = f.plus(t);
+          Array.from(n.domElement.transferAmounts)
+            .filter((n) => n.dataset.location === "summary")
+            .forEach((t) => {
+              t.innerHTML = `<span>${n.currency}</span> ${window.formatNumber(
+                f.toNumber()
+              )}`;
+            });
+        }
+      }
+      if (n.domElement.netCreditedAmount) {
+        const e = r();
+        let i = f;
+        if (e) {
+          const n = new Decimal(e.replaceAll(",", "").replaceAll("%", ""));
+          if (e.indexOf("%") >= 0) {
+            const r = new Decimal(1).minus(n.div(100));
+            i = t(i.mul(r));
+          } else i = i.minus(n);
+        }
+        if (n.domElement.bonusAmountDisplay)
+          if (
+            n.domElement.bonusAmountDisplay.dataset.depositAmount !=
+            n.domElement.input.value
+          ) {
+            const n = document.querySelector("#cancel_bonus_button");
+            n && n.click();
+          } else {
+            const t = parseFloat(n.domElement.bonusAmountDisplay.value) || 0,
+              e = new Decimal(
+                n.domElement.bonusAmountDisplay.dataset.bonusPercentage
+              ).div(100),
+              o = new Decimal(
+                n.domElement.bonusAmountDisplay.dataset.bonusMaxPayout
+              ),
+              r = u(t, i, e, o);
+            let f = `<span>${n.currency}</span> ${window.formatNumber(
+              new Decimal(r).toNumber()
+            )}`;
+            n.domElement.bonusAmountDisplay.dataset.bonusType ==
+              "BonusBalance" &&
+              t > 0 &&
+              (i = i.plus(r));
+            n.domElement.bonusAmountDisplay.dataset.bonusType == "FreeRound" &&
+              (f = `<span>${n.translations.bonusFreeSpin}</span> ${t} ${n.translations.bonusFreeSpinTimes}`);
+            n.domElement.bonusAmountDisplay.dataset.bonusType == "BuyBonus" &&
+              (f = `<span>${n.translations.bonusGameWorth} ${
+                n.currency
+              }</span> ${window.formatNumber(r.toNumber())}`);
+            n.domElement.bonusAmount.innerHTML = f;
+          }
+        i < 0 && (i = new Decimal(0));
+        n.domElement.netCreditedAmount.innerHTML = `<span>${
+          n.currency
+        }</span> ${window.formatNumber(i.toNumber())}`;
+      }
+      if (n.domElement.remainingBalance) {
+        const t = new Decimal(n.currentBalance),
+          i = t.minus(f);
+        n.domElement.remainingBalance.innerHTML = `<span>${
+          n.currency
+        } ${window.formatNumber(i.toNumber())}</span>`;
+      }
+    };
+    n.domElement.inputAmountDisplay &&
+      ((n.domElement.inputAmountDisplay.onkeyup = f),
+      (n.domElement.inputAmountDisplay.onkeydown = (t) => {
+        if (t.key === ".") {
+          const i = n.domElement.inputAmountDisplay.value;
+          (n.domElement.inputAmountDisplay.dataset.inputType !== "decimal" ||
+            i.length === 0 ||
+            i.indexOf(".") >= 0) &&
+            t.preventDefault();
+          return;
+        }
+        isNaN(t.key) &&
+          ["Backspace", "ArrowLeft", "ArrowRight"].includes(t.key) == !1 &&
+          t.preventDefault();
+      }),
+      n.domElement.inputAmountDisplay.onkeyup());
+  };
+});
+$(() => {
+  window.initializeBankInfo = (n) => {
+    const t = document.querySelector("#bank_info"),
+      i = t.querySelector("#bank_info_name"),
+      r = t.querySelector("#bank_info_account_no"),
+      u = t.querySelector("#bank_info_account_no_header"),
+      f = document.querySelectorAll(".copy_bank_account_button"),
+      e = (function () {
+        const r = t.querySelector("#bank_info_logo"),
+          n = t.querySelector("#bank_info_logo_footer"),
+          u = ({ container: n, imageSrc: t }) => {
+            n.style.display = "none";
+            const r = document.createElement("img");
+            r.src = t;
+            r.onload = function () {
+              r.parentElement && i && (i.style.display = "none");
+            };
+            r.onerror = function () {
+              r.parentElement &&
+                ((n.style.display = "none"),
+                (r.style.display = "none"),
+                i && (i.style.display = "block"));
+            };
+            n.childElementCount > 0 && n.removeChild(n.firstChild);
+            n.appendChild(r);
+          };
+        return (i, f) => {
+          if (r) {
+            const e = `${r.dataset.imagePath}${i
+              .replace(/ /g, "-")
+              .toLowerCase()}.svg`;
+            u({ container: r, imageSrc: e });
+            n && u({ container: n, imageSrc: e });
+            t.dataset.hasQrCode = "false";
+            f && f.withQrCode
+              ? ((t.dataset.hasQrCode = "true"),
+                (r.style.display = "block"),
+                n && (n.style.display = "none"))
+              : ((r.style.display = "none"), n && (n.style.display = "block"));
+          }
+        };
+      })(),
+      o = (function () {
+        const n = t.querySelector("#bank_info_account_name"),
+          o = t.querySelector("#bank_info_account_name_header"),
+          s = t.querySelector("#bank_info_account_number_container"),
+          h = t.querySelector("#bank_info_account_number_header_container"),
+          c = document.querySelector("#bank_info_account_no_hidden_input"),
+          l = document.querySelector("#transaction_receipt_container");
+        return (a) => {
+          if (!a || !a.value || a.disabled) {
+            t.hidden = !0;
+            return;
+          }
+          t.hidden = !1;
+          t.dataset.highPriority = a.dataset.highPriority;
+          l && (l.hidden = a.dataset.highPriority === "true");
+          const v = a.dataset.accountNumber.indexOf("*") >= 0;
+          f.forEach((n) => (n.hidden = v));
+          a &&
+            a.dataset.bankName &&
+            (e(a.dataset.bankName, { withQrCode: !!a.dataset.qrCode }),
+            i && (i.innerText = a.dataset.bankName),
+            n &&
+              ((n.style.display = "none"),
+              (n.innerText = a.dataset.accountHolder || n.dataset.label)),
+            o &&
+              ((o.style.display = "none"),
+              (o.innerText = a.dataset.accountHolder || o.dataset.label)),
+            r &&
+              ((s.style.display = "none"),
+              (r.innerText = a.dataset.accountNumber),
+              a.dataset.qrCode !== "" &&
+                a.dataset.highPriority === "false" &&
+                ((s.style.display = "flex"), n && (n.style.display = "block"))),
+            u &&
+              ((h.style.display = "none"),
+              (u.innerText = a.dataset.accountNumber),
+              a.dataset.qrCode === "" &&
+                a.dataset.highPriority === "false" &&
+                ((h.style.display = "flex"), o && (o.style.display = "block"))),
+            c && (c.value = a.dataset.accountNumber));
+        };
+      })(),
+      s = (function () {
+        const t = document.querySelector("#qr_code_note"),
+          n = document.querySelector("#download_qr_code_button"),
+          i = document.querySelector("#bank_qr_code");
+        return (r, u) => {
+          if (
+            (t && (t.style.display = "none"),
+            n && (n.style.display = "none"),
+            i && ((i.innerHTML = ""), r && u))
+          ) {
+            const f = document.createElement("img");
+            f.src = `data:image/${r};base64,${u}`;
+            i.appendChild(f);
+            t && (t.style.display = "block");
+            n &&
+              ((n.download = "qr." + r),
+              (n.style.display = "flex"),
+              n.setAttribute("href", f.src));
+          }
+        };
+      })();
+    Array.from(n.domElement.bankSelect.options).forEach((n) => {
+      if (n.dataset.supportedBanks) {
+        n._supportedBanks = n.dataset.supportedBanks.split(";");
+        return;
+      }
+      n._supportedBanks = [];
+    });
+    f.forEach((t) => {
+      $(t).popover({
+        content: n.translations.copied,
+        placement: "top",
+        trigger: "manual",
+      }),
+        (t.onclick = () => {
+          if (navigator.clipboard) {
+            let n;
+            r && (n = r);
+            u && (n = u);
+            navigator.clipboard
+              .writeText(n.innerText.replaceAll("-", ""))
+              .then(() => {
+                const n = $(t);
+                n.popover("show");
+                setTimeout(() => n.popover("hide"), 500);
+              })
+              .catch((n) =>
+                console.log("Error when copying account number: " + n)
+              );
+          }
+        });
+    });
+    n.domElement.bankSelect.onchange = (function () {
+      const i = document.querySelector(".deposit_amount_display"),
+        r = document.querySelector("#pulsa_deposit_method_field"),
+        f = document.querySelectorAll(".admin_fee_display"),
+        u = document.querySelector("#conversion_rate_display");
+      return () => {
+        i && i.onkeyup && i.onkeyup();
+        const e =
+          n.domElement.bankSelect.options[
+            n.domElement.bankSelect.selectedIndex
+          ];
+        if (!e) {
+          t.hidden = !0;
+          return;
+        }
+        if (
+          (r &&
+            ($(r).show(),
+            e &&
+              e.dataset.isAutoApprove === "true" &&
+              ($(r).hide(),
+              $('.pulsa_deposit_method_radio_button[value="OTHER"]').click())),
+          o(e),
+          f.forEach((t) => {
+            const i = e.dataset.adminFee || "0";
+            if (i.indexOf("%") >= 0) {
+              t.innerText = i;
+              return;
+            }
+            t.innerText = `${n.currency} ${i}`;
+          }),
+          u)
+        ) {
+          let n = "";
+          const t = parseFloat(e.dataset.conversionRate);
+          t > 0 && (n = `1 Unit = ${t} ${u.dataset.currency}`);
+          u.innerText = n;
+        }
+        const h = e.dataset.qrCode,
+          c = e.dataset.qrCodeFormat && e.dataset.qrCodeFormat.replace(".", "");
+        if (
+          (s(c, h),
+          n.domElement.bankSelect.displayDepositAmountRange &&
+            n.domElement.bankSelect.displayDepositAmountRange(e),
+          n.paymentType === "QR")
+        ) {
+          const n = document.querySelector("#unique_code_container");
+          n &&
+            (n.style.display =
+              e.dataset.highPriority === "false" ? "" : "none");
+        }
+      };
+    })();
+    n.domElement.bankSelect.onchange();
+  };
+});
+$(() => {
+  window.initializePaymentAccountSelection = (n) => {
+    const i = document.querySelector("#available_payment_accounts_popup"),
+      t = document.querySelector("#available_payment_accounts_container"),
+      r = (i) => {
+        const r = document.createElement("div");
+        r.className =
+          "available-payment-account-item available_payment_account_item";
+        r.dataset.bankId = i.bankId;
+        r.dataset.highPriority = i.highPriority;
+        r.dataset.selected = i.isSelected;
+        r.dataset.isMaintenance = i.isMaintenance;
+        r._selectAccount = i.selectAccount;
+        const e = document.createElement("div");
+        e.className = "available-payment-account-status";
+        e.dataset.isOnline = i.isOnline;
+        e.dataset.bankId = i.bankId;
+        const u = document.createElement("img");
+        u.className = "available-payment-account-logo";
+        u.dataset.bankId = i.bankId;
+        u.src = i.bankLogo;
+        u.alt = i.bankName;
+        u.onerror = () => (u.src = t.dataset.defaultPaymentAccountIcon);
+        const o = document.createElement("div");
+        o.className = "available-payment-account-name";
+        o.dataset.bankId = i.bankId;
+        o.innerText = i.name;
+        const s = document.createElement("div");
+        s.className = "available-payment-account-sub-info";
+        s.dataset.bankId = i.bankId;
+        s.innerText = i.adminFee
+          ? `${n.translations.adminFee}: ${i.adminFee}`
+          : `${i.accountHolder || "-"}`;
+        const f = document.createElement("div");
+        f.className = "available-payment-account-info";
+        f.dataset.bankId = i.bankId;
+        const h = document.createElement("div");
+        h.className = "available-payment-account-action";
+        const c = document.createElement("div");
+        if (
+          ((c.className = "available-payment-account-checkbox"),
+          i.isSelected && c.classList.add("checked"),
+          h.appendChild(c),
+          f.appendChild(o),
+          f.appendChild(s),
+          r.appendChild(e),
+          r.appendChild(u),
+          r.appendChild(f),
+          i.highPriority === "true")
+        ) {
+          const t = document.createElement("div");
+          t.className = "available-payment-account-label";
+          t.innerText = n.translations.instantLabel;
+          i.isMaintenance === "true" &&
+            (t.innerText = n.translations.maintenanceLabel);
+          r.appendChild(t);
+        }
+        if ((r.appendChild(h), i.isLastUsed === "true")) {
+          const t = document.createElement("div");
+          t.className = "last-used-account";
+          t.innerText = n.translations.lastUsed;
+          r.appendChild(t);
+        }
+        return r;
+      },
+      u = (i) => {
+        if (!(i.length <= 0)) {
+          const u = document.createElement("div");
+          u.className = "available-payment-account-group-label";
+          u.innerHTML = `${n.translations.recommended} <span>(${n.translations.instantProcess})</span>`;
+          t.appendChild(u);
+          i.sort((n, t) =>
+            n.isMaintenance === t.isMaintenance
+              ? 0
+              : n.isMaintenance === "true" && t.isMaintenance !== "true"
+              ? 1
+              : -1
+          );
+          i.forEach((n) => {
+            t.appendChild(r(n));
+          });
+        }
+      },
+      f = (n, t) => {
+        const r = [],
+          u = [];
+        Array.from(n.options).forEach((t) => {
+          if (t.disabled !== !0) {
+            const i = {
+              name: t.innerText,
+              bankId: t.value,
+              bankLogo: t.dataset.bankLogo,
+              bankName: t.dataset.bankName,
+              adminFee: t.dataset.adminFee,
+              highPriority: t.dataset.highPriority,
+              isOnline: t.dataset.isOnline,
+              isMaintenance: t.dataset.isMaintenance,
+              isSelected: n.value === t.value,
+              accountHolder: t.dataset.accountHolder,
+              isLastUsed: t.dataset.isLastUsed,
+              selectAccount: (t) => {
+                (n.value = t), n.onchange && n.onchange();
+              },
+            };
+            t.dataset.highPriority === "true" ? r.push(i) : u.push(i);
+          }
+        });
+        t(r, u);
+        i.classList.add("show");
+      };
+    if (
+      i &&
+      ((i.onclick = (n) => {
+        n.target.id === i.id && i.classList.remove("show");
+      }),
+      t)
+    )
+      $(t).on("click", ".available_payment_account_item", (n) => {
+        if (n.currentTarget._selectAccount) {
+          if (n.currentTarget.dataset.isMaintenance === "true") {
+            n.preventDefault();
+            return;
+          }
+          n.currentTarget._selectAccount(n.currentTarget.dataset.bankId);
+        }
+        i.classList.remove("show");
+      });
+    const e = (n, t) => {
+      const i = document.createElement("div");
+      i.classList.add("pseudo_event_listener");
+      i.style.position = "absolute";
+      i.addEventListener("click", t);
+      const r = () => {
+        const t = n.getBoundingClientRect();
+        i.style.height = `${t.height}px`;
+        i.style.width = `${t.width}px`;
+      };
+      r();
+      n.parentElement.insertBefore(i, n);
+      n.style.pointerEvents = "none";
+      const u = () => {
+        i.timeoutId && clearTimeout(i.timeoutId),
+          (i.timeoutId = setTimeout(r, 300));
+      };
+      window.addEventListener("resize", u);
+    };
+    if (n.domElement.companyAccountSelect) {
+      const i = (i) => {
+          if (!(i.length <= 0)) {
+            const u = document.createElement("div");
+            u.className = "available-payment-account-group-label";
+            u.innerText = n.translations.others;
+            t.appendChild(u);
+            i.forEach((n) => {
+              t.appendChild(r(n));
+            });
+          }
+        },
+        o = (r, f) => {
+          (t.textContent = ""),
+            n.paymentType === "BANK" ? (i(f), u(r)) : (u(r), i(f));
+        };
+      e(n.domElement.companyAccountSelect, () => {
+        f(n.domElement.companyAccountSelect, o);
+      });
+    }
+    if (n.domElement.playerAccountSelect) {
+      const v = (i, f) => {
+        if (((t.textContent = ""), i.length == 0 && f.length == 0)) {
+          const i = document.createElement("div");
+          i.className = "available-payment-account-group-label";
+          i.innerHTML = n.translations.paymentAccountSelectionTitle;
+          t.appendChild(i);
+          const r = document.createElement("div");
+          r.className = "empty-payment-account-note";
+          r.innerText = n.translations.emptyPaymentAccountNote;
+          t.appendChild(r);
+        }
+        if ((u(i), f.length > 0)) {
+          const i = document.createElement("div");
+          i.className = "available-payment-account-group-label";
+          i.innerHTML = n.translations.paymentAccountSelectionTitle;
+          t.appendChild(i);
+          f.forEach((n) => {
+            t.appendChild(r(n));
+          });
+        }
+        const e = document.createElement("div");
+        e.className = "available-payment-account-footer";
+        e.id = "add_payment_account_account_item";
+        const o = document.createElement("img");
+        o.className = "available-payment-account-logo";
+        o.src = t.dataset.defaultPaymentAccountIcon;
+        o.alt = n.translations.addAccount;
+        e.appendChild(o);
+        const s = document.createElement("div");
+        s.className = "available-payment-account-info";
+        s.innerHTML = n.translations.addAccount;
+        e.appendChild(s);
+        const h = document.createElement("div");
+        h.className = "available-payment-account-action";
+        const c = document.createElement("div");
+        c.className = "new-payment-account-icon-container";
+        const l = document.createElement("img");
+        l.src = `${n.newPaymentAccountIconPath}`;
+        c.appendChild(l);
+        h.appendChild(c);
+        e.appendChild(h);
+        t.appendChild(e);
+      };
+      e(n.domElement.playerAccountSelect, () => {
+        f(n.domElement.playerAccountSelect, v);
+      });
+      const o = document.querySelector("#payment_account_popup"),
+        s = document.querySelector("#payment_account_container"),
+        c = document.querySelector("#popup_loader_container"),
+        l = () =>
+          registerPopup({
+            content: "Please try again in few minutes. Code:008PA",
+          });
+      window.onAddAccountAjaxRequestSuccess = (t) => {
+        t.status === !0 &&
+          ($.ajax({
+            type: "POST",
+            url: `/Wallet/AvailablePlayerPaymentAccounts`,
+            data: JSON.stringify({ paymentType: n.paymentType }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (t) => {
+              const i = n.domElement.playerAccountSelect;
+              i.innerHTML = "";
+              t.forEach((t) => {
+                const r = document.createElement("option");
+                r.value = [t.paymentName, t.accountNumber].join(" | ");
+                r.dataset.bankName = t.paymentName;
+                r.dataset.accountHolder = t.accountHolder;
+                r.dataset.accountNumber = t.accountNumber;
+                r.dataset.isLastUsed = t.isUsedForLastDeposit;
+                r.dataset.bankLogo = `${
+                  n.bankLogoDirPath
+                }${t.paymentName.replace(" ", "-")}.webp`;
+                r.innerHTML = [
+                  t.paymentName,
+                  window.formatAccountNumber(t.accountNumber),
+                ].join(" | ");
+                i.dataset.checkForWithdrawalAvailability &&
+                  ((r.disabled = !t.allowToWithdraw),
+                  (r.dataset.adminFee = t.adminFee));
+                i.appendChild(r);
+              });
+            },
+            error: l,
+          }),
+          o.classList.contains("show") && o.classList.remove("show")),
+          registerPopup({
+            content: t.message,
+            onClose: () => {
+              t.status !== !0;
+            },
+          });
+      };
+      window.onAddAccountAjaxRequestBegin = () => {
+        const n = document.querySelectorAll(".btn-primary");
+        $(n).prop("disabled", !0);
+      };
+      window.onAddAccountAjaxRequestComplete = () => {
+        const n = document.querySelectorAll(".btn-primary");
+        $(n).prop("disabled", !1);
+      };
+      const h = document.querySelector("#add_payment_account_button");
+      if (h) {
+        h.onclick = () => {
+          i.classList.contains("show") && i.classList.remove("show"),
+            o.classList.add("show"),
+            c.classList.add("display"),
+            s.classList.remove("display"),
+            (s.innerHTML = ""),
+            $.ajax({
+              type: "POST",
+              url: `/Wallet/PaymentAccountCreationForm`,
+              data: JSON.stringify({ paymentType: n.paymentType }),
+              contentType: "application/json; charset=utf-8",
+              dataType: "html",
+              success: (n) => {
+                s.innerHTML = n;
+                c.classList.remove("display");
+                s.classList.add("display");
+                $.validator.unobtrusive.parse(
+                  "#payment_account_container form"
+                );
+                const t = document.querySelector(
+                  "#payment_account_number_input"
+                );
+                t && $(t).mask("0000-0000-0000-0000-0000");
+                window.initializeOtp();
+              },
+              error: l,
+            });
+        };
+        n.domElement.playerAccountSelect.options.length === 0 && h.click();
+        $(t).on("click", "#add_payment_account_account_item", () => {
+          h.click();
+        });
+      }
+      o.onclick = (n) => {
+        n.target.id === o.id && o.classList.remove("show");
+      };
+      const a = document.querySelector("#close_payment_account_popup");
+      a &&
+        (a.onclick = () => {
+          o.classList.remove("show");
+        });
+    }
+  };
+});
+$(() => {
+  const n = (n, t) => {
+    let i = `/deposit/` + n;
+    t && (i = `/${t}${i}`);
+    window.location.href = i;
+  };
+  window.initializeDepositPage = (t) => {
+    const o = document.querySelector("#payment_method_selection"),
+      s = o.querySelectorAll('input[type="radio"]');
+    s.forEach((i) => {
+      i.onchange = (i) => n(i.target.value, t.platform);
+    });
+    const h = document.querySelector(".deposit_amount_input"),
+      c = document.querySelector(".deposit_amount_display"),
+      i = document.querySelector("#deposit_to_bank_select");
+    window.initializeInputAmount({
+      domElement: {
+        input: h,
+        inputAmountDisplay: c,
+        toAccountSelect: i,
+        transferAmounts: document.querySelectorAll(".transfer_amount"),
+        netCreditedAmount: document.querySelector("#net_credited_amount"),
+        fastDepositNumber: document.querySelector("#fast_deposit_number"),
+        uniqueCode: document.querySelector("#unique_code"),
+        bonusAmountDisplay: document.querySelector(
+          "#deposit_bonus_amount_display"
+        ),
+        bonusAmount: document.querySelector("#bonus_amount"),
+      },
+      currency: t.currency,
+      translations: {
+        bonusFreeSpin: t.translations.bonusFreeSpin,
+        bonusFreeSpinTimes: t.translations.bonusFreeSpinTimes,
+        bonusGameWorth: t.translations.bonusGameWorth,
+      },
+    });
+    const u = document.querySelector("#deposit_form"),
+      r = $(u);
+    r.submit(function (n) {
+      n.preventDefault();
+      r.valid() && document.depositForm.submit();
+    });
+    const f = document.querySelector("#transaction_receipt_input");
+    if (f) {
+      const n = document.querySelector("#upload_success_indicator");
+      n.style.display = "none";
+      f.onchange = () => {
+        f.files.length > 0 && (n.style.display = "block");
+      };
+    }
+    if (i) {
+      const n = document.querySelector("#deposit_amount_range_label");
+      i.displayDepositAmountRange = (t) => {
+        const i = t.dataset.depositAmountRange;
+        n && ((n.textContent = ""), i && (n.textContent = i));
+      };
+      window.initializeBankInfo({
+        domElement: { bankSelect: i },
+        currency: t.currency,
+        translations: t.translations,
+        paymentType: t.paymentType,
+      });
+      i.dataset.qr && i.onchange && i.onchange();
+    }
+    if (t.paymentType === "BANK") {
+      const n = document.querySelector("#from_bank_account_select");
+      n &&
+        ((n.onchange = () => {
+          if (n.options.length !== 0) {
+            const e = n.options[n.selectedIndex],
+              [t] = e.text.split(" | ");
+            Array.from(i.options).forEach((n) => {
+              (n.disabled = !1),
+                (n.style.display = ""),
+                n._supportedBanks.length > 0 &&
+                  n._supportedBanks.includes(t) === !1 &&
+                  ((n.disabled = !0), (n.style.display = "none"));
+            });
+            const o = () => {
+                const r = Array.from(i.options).find((n) => {
+                  if (n.disabled || n.dataset.isMaintenance === "true")
+                    return !1;
+                  const [i] = n.text.split(" | ");
+                  return t === i;
+                });
+                if (r) return r;
+                const u = Array.from(i.options).find((n) =>
+                  n.disabled || n.dataset.isMaintenance === "true"
+                    ? !1
+                    : n.dataset.highPriority !== "true"
+                );
+                if (u) return u;
+                const n = i.options[i.selectedIndex];
+                return n && (n.disabled || n.dataset.isMaintenance === "true")
+                  ? Array.from(i.options).find(
+                      (n) =>
+                        n.disabled === !1 && n.dataset.isMaintenance !== "true"
+                    )
+                  : undefined;
+              },
+              f = o();
+            f && (i.value = f.value);
+            i.onchange && i.onchange();
+            u && r.valid();
+          }
+        }),
+        n.onchange(),
+        window.initializePaymentAccountSelection({
+          domElement: { companyAccountSelect: i, playerAccountSelect: n },
+          currency: t.currency,
+          translations: t.translations,
+          paymentType: t.paymentType,
+          bankLogoDirPath: t.bankLogoDirPath,
+          newPaymentAccountIconPath: t.newPaymentAccountIconPath,
+        }));
+    }
+    if (t.paymentType === "VA") {
+      const n = document.querySelector("#from_bank_account_select");
+      n &&
+        window.initializePaymentAccountSelection({
+          domElement: { companyAccountSelect: i, playerAccountSelect: n },
+          currency: t.currency,
+          translations: t.translations,
+          paymentType: t.paymentType,
+          bankLogoDirPath: t.bankLogoDirPath,
+          newPaymentAccountIconPath: t.newPaymentAccountIconPath,
+        });
+    }
+    if (t.paymentType === "EMONEY") {
+      const n = document.querySelector("#from_emoney_account_select");
+      n &&
+        ((n.onchange = () => {
+          if (n.options.length !== 0) {
+            const e = n.options[n.selectedIndex],
+              [t] = e.text.split(" | ");
+            Array.from(i.options).forEach((n) => {
+              (n.disabled = !1),
+                (n.style.display = ""),
+                n._supportedBanks.length > 0 &&
+                  n._supportedBanks.includes(t) === !1 &&
+                  ((n.disabled = !0), (n.style.display = "none"));
+            });
+            const o = () => {
+                const r = Array.from(i.options).find((n) =>
+                  n.disabled || n.dataset.isMaintenance === "true"
+                    ? !1
+                    : n.dataset.highPriority === "true"
+                );
+                if (r) return r;
+                const u = Array.from(i.options).find((n) => {
+                  if (n.disabled || n.dataset.isMaintenance === "true")
+                    return !1;
+                  const [i] = n.text.split(" | ");
+                  return t === i;
+                });
+                if (u) return u;
+                const n = i.options[i.selectedIndex];
+                return n && (n.disabled || n.dataset.isMaintenance === "true")
+                  ? Array.from(i.options).find(
+                      (n) =>
+                        n.disabled === !1 && n.dataset.isMaintenance !== "true"
+                    )
+                  : undefined;
+              },
+              f = o();
+            f && (i.value = f.value);
+            i.onchange && i.onchange();
+            u && r.valid();
+          }
+        }),
+        n.onchange(),
+        window.initializePaymentAccountSelection({
+          domElement: { companyAccountSelect: i, playerAccountSelect: n },
+          currency: t.currency,
+          translations: t.translations,
+          paymentType: t.paymentType,
+          bankLogoDirPath: t.bankLogoDirPath,
+          newPaymentAccountIconPath: t.newPaymentAccountIconPath,
+        }));
+    }
+    if (t.paymentType === "PULSA") {
+      const n = document.querySelectorAll(".pulsa_deposit_method_radio_button");
+      if (n.length) {
+        const t = $(document.querySelector("#card_number_field")),
+          r = $(document.querySelector("#telephone_number_field")),
+          u = () => {
+            if (
+              $(".pulsa_deposit_method_radio_button:checked")
+                .val()
+                .toLowerCase() === "phone"
+            ) {
+              t.hide();
+              r.show();
+              return;
+            }
+            t.show();
+            r.hide();
+          };
+        $(n).on("change", u);
+        u();
+        i.onchange && i.onchange();
+      }
+    }
+    if (t.paymentType === "CRYPTO") {
+      const n = document.querySelector("#from_crypto_payment_name_select");
+      n &&
+        ((n.onchange = () => {
+          if (n.options.length !== 0) {
+            const t = n.value;
+            Array.from(i.options).forEach((n) => {
+              (n.disabled = !1),
+                (n.style.display = ""),
+                n._supportedBanks.length > 0 &&
+                  n._supportedBanks.includes(t) === !1 &&
+                  ((n.disabled = !0), (n.style.display = "none"));
+            });
+            const e = () => {
+                const r = Array.from(i.options).find((n) => {
+                  if (n.disabled || n.dataset.isMaintenance === "true")
+                    return !1;
+                  const [i] = n.text.split(" | ");
+                  return t === i;
+                });
+                if (r) return r;
+                const n = i.options[i.selectedIndex];
+                return n && (n.disabled || n.dataset.isMaintenance === "true")
+                  ? Array.from(i.options).find(
+                      (n) =>
+                        n.disabled === !1 && n.dataset.isMaintenance !== "true"
+                    )
+                  : undefined;
+              },
+              f = e();
+            f && (i.value = f.value);
+            i.onchange && i.onchange();
+            u && r.valid();
+          }
+        }),
+        n.onchange());
+    }
+    (t.paymentType === "QR" ||
+      t.paymentType === "PULSA" ||
+      t.paymentType === "CRYPTO") &&
+      window.initializePaymentAccountSelection({
+        domElement: { companyAccountSelect: i },
+        currency: t.currency,
+        translations: t.translations,
+        paymentType: t.paymentType,
+        bankLogoDirPath: t.bankLogoDirPath,
+        newPaymentAccountIconPath: t.newPaymentAccountIconPath,
+      });
+    const e = document.querySelector("#deposit_summary_header");
+    if (e) {
+      const t = document.querySelector("#deposit_summary_detail_toggler"),
+        n = document.querySelector("#deposit_summary_content");
+      e.onclick = () => {
+        const i = t.querySelector("i");
+        n.classList.contains("expand")
+          ? (n.classList.remove("expand"),
+            i.classList.remove("glyphicon-chevron-up"),
+            i.classList.add("glyphicon-chevron-down"))
+          : (n.classList.add("expand"),
+            i.classList.remove("glyphicon-chevron-down"),
+            i.classList.add("glyphicon-chevron-up"));
+      };
+    }
+  };
+});

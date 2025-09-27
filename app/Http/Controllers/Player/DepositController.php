@@ -68,13 +68,26 @@ class DepositController extends Controller
             'TransactionReceipt' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
+        $user = Auth::user();
+
+        // Validasi jika ada transaksi pending
+        $pendingTransaction = Transaction::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->exists();
+
+        if ($pendingTransaction) {
+            return response()->json([
+                'message' => '⚠️ Anda masih memiliki transaksi yang pending, silakan tunggu hingga selesai.',
+            ], 400);
+        }
+
         $proofPath = $request->file('TransactionReceipt')->store('proofs', 'public');
 
         $paymentOwner = PaymentOwner::where('account_number', $request->ToAccountNumber)
             ->first();
 
         $transaction = Transaction::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'type' => 'deposit',
             'trx_type' => 'credit',
             'status' => 'pending',
@@ -108,12 +121,25 @@ class DepositController extends Controller
             'TransactionReceipt' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
+        $user = Auth::user();
+
+        // Validasi jika ada transaksi pending
+        $pendingTransaction = Transaction::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->exists();
+
+        if ($pendingTransaction) {
+            return response()->json([
+                'message' => '⚠️ Anda masih memiliki transaksi yang pending, silakan tunggu hingga selesai.',
+            ], 400);
+        }
+
         $proofPath = $request->file('TransactionReceipt')->store('proofs', 'public');
 
         $paymentOwner = PaymentOwner::findOrFail($request->ToQrisAccount);
 
         $transaction = Transaction::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'type' => 'deposit',
             'trx_type' => 'credit',
             'status' => 'pending',

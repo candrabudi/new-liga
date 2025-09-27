@@ -1,4 +1,4 @@
-<div class="tab-menu-background-container" bis_skin_checked="1" style="margin-top: 70px;">
+<div class="tab-menu-background-container" bis_skin_checked="1" style="margin-top: 0px;">
     <div class="tab-menu-container" bis_skin_checked="1">
         <a href="/mobile/deposit" data-active="true">
             <i data-icon="deposit"

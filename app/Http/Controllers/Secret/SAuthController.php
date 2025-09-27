@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Secret;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,9 @@ class SAuthController extends Controller
 {
     public function login()
     {
-        return view('secret.auth.login');
+        $website = Website::first();
+
+        return view('secret.auth.login', compact('website'));
     }
 
     public function loginProcess(Request $request)
@@ -29,14 +32,14 @@ class SAuthController extends Controller
             ->where('role', 'admin')
             ->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Username atau password salah.',
             ], 401);
         }
 
-        if (! $user->is_active) {
+        if (!$user->is_active) {
             return response()->json([
                 'success' => false,
                 'message' => 'Akun Anda tidak aktif.',
@@ -46,8 +49,8 @@ class SAuthController extends Controller
         Auth::login($user, $request->boolean('remember'));
 
         return response()->json([
-            'success'  => true,
-            'message'  => 'Selamat datang, Admin!',
+            'success' => true,
+            'message' => 'Selamat datang, Admin!',
             'redirect' => route('secret.dashboard'),
         ]);
     }
@@ -55,6 +58,7 @@ class SAuthController extends Controller
     public function logout()
     {
         Auth::logout();
+
         return redirect()->route('secret.login')->with('success', 'Anda telah keluar.');
     }
 }

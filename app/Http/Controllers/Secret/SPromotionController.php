@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Secret;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Promotion;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SPromotionController extends Controller
 {
@@ -23,7 +23,7 @@ class SPromotionController extends Controller
         $query = Promotion::query();
 
         if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where('title', 'like', '%'.$request->search.'%');
         }
 
         if ($request->status) {
@@ -31,6 +31,7 @@ class SPromotionController extends Controller
         }
 
         $promotions = $query->orderBy('id', 'desc')->paginate(10);
+
         return response()->json($promotions);
     }
 
@@ -72,10 +73,12 @@ class SPromotionController extends Controller
             ]);
 
             DB::commit();
+
             return redirect()->route('secret.promotions.index')->with('success', 'Promotion berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+
+            return back()->withInput()->with('error', 'Terjadi kesalahan: '.$e->getMessage());
         }
     }
 
@@ -101,7 +104,9 @@ class SPromotionController extends Controller
             ]);
 
             if ($request->hasFile('thumb')) {
-                if ($promotion->thumb) Storage::disk('public')->delete($promotion->thumb);
+                if ($promotion->thumb) {
+                    Storage::disk('public')->delete($promotion->thumb);
+                }
                 $promotion->thumb = $request->file('thumb')->store('promotions', 'public');
             }
 
@@ -116,18 +121,23 @@ class SPromotionController extends Controller
             ]);
 
             DB::commit();
+
             return redirect()->route('secret.promotions.index')->with('success', 'Promotion berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+
+            return back()->withInput()->with('error', 'Terjadi kesalahan: '.$e->getMessage());
         }
     }
 
     // Hapus promotion
     public function destroy(Promotion $promotion)
     {
-        if ($promotion->thumb) Storage::disk('public')->delete($promotion->thumb);
+        if ($promotion->thumb) {
+            Storage::disk('public')->delete($promotion->thumb);
+        }
         $promotion->delete();
+
         return back()->with('success', 'Promotion berhasil dihapus.');
     }
 }

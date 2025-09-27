@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Secret;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Member;
+use App\Models\ProviderCredential;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class SWithdrawController extends Controller
 {
     /**
-     * Halaman withdraw pending
+     * Halaman withdraw pending.
      */
     public function pending()
     {
@@ -17,7 +20,7 @@ class SWithdrawController extends Controller
     }
 
     /**
-     * Data withdraw pending (JSON)
+     * Data withdraw pending (JSON).
      */
     public function pendingWithdraws(Request $request)
     {
@@ -39,7 +42,7 @@ class SWithdrawController extends Controller
     }
 
     /**
-     * Approve withdraw
+     * Approve withdraw.
      */
     public function approve($id)
     {
@@ -52,7 +55,7 @@ class SWithdrawController extends Controller
     }
 
     /**
-     * Reject withdraw
+     * Reject withdraw.
      */
     public function reject($id, Request $request)
     {
@@ -61,16 +64,52 @@ class SWithdrawController extends Controller
         ]);
 
         $trx = Transaction::where('type', 'withdraw')->findOrFail($id);
+
+        if ($trx->status !== 'pending') {
+            return response()->json([
+                'message' => 'Transaksi tidak bisa ditolak karena bukan status pending.',
+            ], 400);
+        }
+
+        $member = Member::where('user_id', $trx->user_id)->firstOrFail();
+        $credential = ProviderCredential::first();
+
+        if (!$credential) {
+            return response()->json([
+                'message' => '⚠️ Credential provider belum dikonfigurasi.',
+            ], 500);
+        }
+
+        $response = Http::post('https://api.telo.is/api/v2/user_deposit', [
+            'agent_code' => $credential->agent_code,
+            'agent_token' => $credential->agent_token,
+            'user_code' => $member->ext_code,
+            'amount' => $trx->amount,
+        ]);
+
+        $data = $response->json();
+
+        if (!isset($data['status']) || $data['status'] != 1) {
+            return response()->json([
+                'message' => $data['msg'] ?? 'Gagal mengembalikan saldo ke provider.',
+            ], 422);
+        }
+
         $trx->status = 'rejected';
         $trx->reason = $request->reason;
         $trx->updated_by = auth()->id();
         $trx->save();
 
-        return response()->json(['message' => 'Withdraw ditolak']);
+        $member->increment('balance', $trx->amount);
+
+        return response()->json([
+            'message' => 'Withdraw ditolak dan saldo berhasil dikembalikan ke user.',
+            'provider_balance' => $data['user_balance'] ?? null,
+        ]);
     }
 
     /**
-     * Halaman history withdraw
+     * Halaman history withdraw.
      */
     public function history()
     {
@@ -78,7 +117,7 @@ class SWithdrawController extends Controller
     }
 
     /**
-     * Data history withdraw (JSON)
+     * Data history withdraw (JSON).
      */
     public function historyList(Request $request)
     {
@@ -102,7 +141,7 @@ class SWithdrawController extends Controller
         }
 
         if ($start && $end) {
-            $query->whereBetween('created_at', [$start . " 00:00:00", $end . " 23:59:59"]);
+            $query->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
         }
 
         $transactions = $query->latest()->paginate(10);

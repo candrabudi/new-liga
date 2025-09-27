@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Player\AccountController;
 use App\Http\Controllers\Player\AuthController;
 use App\Http\Controllers\Player\ComponentController;
 use App\Http\Controllers\Player\ContactController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Player\DepositController;
 use App\Http\Controllers\Player\GameController;
 use App\Http\Controllers\Player\HomeController;
 use App\Http\Controllers\Player\PromotionController;
+use App\Http\Controllers\Player\WithdrawController;
 use App\Http\Controllers\Secret\SAdjustmentController;
 use App\Http\Controllers\Secret\SAuthController;
 use App\Http\Controllers\Secret\SBannerController;
@@ -53,14 +55,33 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mobile/deposit/qris', [DepositController::class, 'qris'])
         ->name('mobile.deposit.qris');
 
+    Route::get('/mobile/withdrawal', [WithdrawController::class, 'index'])
+        ->name('mobile.withdrawal.index');
+
     Route::post('/Wallet/BankDeposit', [DepositController::class, 'storeBank'])
         ->name('wallet.deposit.store.bank');
 
+    Route::post('/Wallet/withdrawal', [WithdrawController::class, 'store'])
+        ->name('wallet.withdrawal.store');
+
     Route::post('/Wallet/QrDeposit', [DepositController::class, 'storeQris'])
-        ->name('wallet.deposit.store. qris');
+        ->name('wallet.deposit.store.qris');
+
+    Route::get('/mobile/account-summary', [AccountController::class, 'accountSummary'])
+        ->name('account.summary');
+
+    Route::get('/mobile/password', [AccountController::class, 'password'])
+        ->name('account.password');
+
+    Route::post('/Profile/Password', [AccountController::class, 'updatePassword']);
 
     Route::get('/secret/games/play/{providerId}/{gameCode}', [GameController::class, 'playGame'])
         ->name('secret.games.play');
+
+    Route::get('/secret/games/play/{providerId}/{gameCode}', [GameController::class, 'playGame'])
+        ->name('secret.games.play');
+
+    Route::get('/update-balance', [AccountController::class, 'updateBalance']);
 });
 
 Route::prefix('secret')->as('secret.')->group(function () {

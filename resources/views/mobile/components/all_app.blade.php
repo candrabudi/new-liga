@@ -93,12 +93,15 @@
 </div>
 
 
-
+@php
+    use App\Models\Website;
+    $website = Website::first();
+@endphp
 <div class="telegram-banner-container">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <a href="https://t.me/Lm2_Game_Bot" rel="nofollow" target="_blank">
+                <a href="{{ $website->link_telegram }}" rel="nofollow" target="_blank">
 
                     <picture>
                         <source

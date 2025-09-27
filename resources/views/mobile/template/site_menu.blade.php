@@ -1,7 +1,11 @@
+    @php
+        use App\Models\Website;
+        $website = Website::first();
+    @endphp
 @if (Auth::user())
     <ul>
         <li class="telegram-bot-login">
-            <a href="https://t.me/Lm2_Game_Bot" class="telegram-bot-link" rel="nofollow" target="_blank">
+            <a href="{{ $website->link_telegram }}" class="telegram-bot-link" rel="nofollow" target="_blank">
                 <picture>
                     <source
                         srcset="//dsuown9evwz4y.cloudfront.net/Images/communications/telegram-banner/telegram-bot-side-menu-id.webp?v=20250528"
@@ -38,7 +42,7 @@
                             </div>
                             IDR
                             <span class="total_locked_balance">
-                                0.00
+                                 {{ number_format(round(Auth::user()->member->balance), 0, ',', '.') }}
                             </span>
                         </div>
                     </div>
@@ -53,7 +57,7 @@
                 </a>
                 <div class="user-menu" bis_skin_checked="1">
                     <div class="user-menu-item" bis_skin_checked="1">
-                        <a href="/mobile/deposit">
+                        <a href="/mobile/deposit/bank">
                             <img alt="Deposit" loading="lazy"
                                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/tabs/deposit.svg?v=20250528">
                             DEPOSIT
@@ -67,7 +71,7 @@
                         </a>
                     </div>
                     <div class="user-menu-item" bis_skin_checked="1">
-                        <a href="/loyalty/redemption-store" target="_blank">
+                        <a href="#" target="_blank">
                             <img alt="Penukaran" loading="lazy"
                                 src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/tabs/redemption-store.svg?v=20250528">
                             PENUKARAN
@@ -349,7 +353,7 @@
             </div>
         </li>
         <li>
-            <a href="/mobile/mobile-app">
+            <a href="#">
                 <i data-icon="desktop"
                     style="background-image: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/menu/download.svg?v=20250528);"></i>
                 Unduh Aplikasi Permainan
@@ -373,7 +377,7 @@
 @else
     <ul>
         <li class="telegram-bot">
-            <a href="https://t.me/Lm2_Game_Bot" class="telegram-bot-link" rel="nofollow" target="_blank">
+            <a href="{{ $website->link_telegram }}" class="telegram-bot-link" rel="nofollow" target="_blank">
                 <picture>
                     <source
                         srcset="//dsuown9evwz4y.cloudfront.net/Images/communications/telegram-banner/telegram-bot-side-menu-id.webp?v=20250528"

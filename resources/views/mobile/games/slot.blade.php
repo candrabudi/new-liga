@@ -4,7 +4,7 @@
         href="{{ asset('Content/Slots/mobile-css.css') }}?v=RX-JXdMKFs9K4m-Mrz_M9z6C-FtLYrUmKZmso4VGeV81"rel="stylesheet" />
 @endpush
 @section('content')
-    <h1 class="slots-title" style="margin-top: 70px;">PG Soft</h1>
+    <h1 class="slots-title" style="margin-top: 20px;">{{ strtoupper($a) }}</h1>
 
     <div class="slots-games-container">
         <div class="filter-section">

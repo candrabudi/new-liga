@@ -11,7 +11,7 @@
 <head>
 
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,7 +175,15 @@
                     loading="lazy" src="{{ $website->website_logo }}" />
             </a>
 
-
+            @if (Auth::user())
+                <div class="unread-announcements-button" data-announcement-count="0" id="unread_announcements_button"
+                    bis_skin_checked="1">
+                    <a href="/mobile/messages/announcement">
+                        <img alt="Bell" loading="lazy"
+                            src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/bell.svg?v=20250528">
+                    </a>
+                </div>
+            @endif
             <input type="checkbox" id="site_menu_trigger_input" class="site-menu-trigger-input" />
             <label class="site-menu-trigger" for="site_menu_trigger_input" data-new-notification="false">
                 <i data-icon="menu"></i>
@@ -353,6 +361,30 @@
                         document.getElementById('loginMessage').innerHTML =
                             `<div class="alert alert-danger">${message}</div>`;
                     });
+            });
+        </script>
+    @endif
+
+    @if (Auth::user())
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const balanceEl = document.getElementById('current_balance');
+
+                const updateBalance = () => {
+                    axios.get('/update-balance')
+                        .then(res => {
+                            if (res.data.status === 1) {
+                                balanceEl.textContent = res.data.balance;
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Gagal update balance:', err);
+                        });
+                };
+
+                updateBalance();
+                setInterval(updateBalance, 10000);
             });
         </script>
     @endif

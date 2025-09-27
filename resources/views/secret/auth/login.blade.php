@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
-    <title>Rukada - Login</title>
+    <title>{{ $website->website_name }} - Login</title>
 </head>
 
 <body class="bg-login">
@@ -28,10 +28,10 @@
                             <div class="card-body">
                                 <div class="p-4">
                                     <div class="mb-3 text-center">
-                                        <img src="{{ asset('assets/images/logo-icon.png') }}" width="60" alt="" />
+                                        <img src="{{ asset($website->website_logo) }}" width="180" alt="" />
                                     </div>
                                     <div class="text-center mb-4">
-                                        <h5 class="">Rukada Admin</h5>
+                                        <h5 class="">{{ $website->website_name }}</h5>
                                         <p class="mb-0">Please log in to your account</p>
                                     </div>
 
@@ -88,7 +88,6 @@
 
     <script>
         $(document).ready(function() {
-            // show/hide password
             $("#show_hide_password a").on('click', function(event) {
                 event.preventDefault();
                 let input = $('#show_hide_password input');
@@ -102,7 +101,6 @@
                 }
             });
 
-            // submit form pakai axios
             $("#loginForm").on("submit", function(e) {
                 e.preventDefault();
                 let formData = {

@@ -5,7 +5,9 @@
 @section('content')
     @php
         use App\Models\Contact;
+        use App\Models\Website;
         $contacts = Contact::all();
+        $website = Website::first();
     @endphp
     <div class="standard-form-container" bis_skin_checked="1">
         <div class="container" bis_skin_checked="1">
@@ -13,7 +15,7 @@
                 <div class="col-sm-12" bis_skin_checked="1">
                     <div class="contact-us-container" bis_skin_checked="1">
                         <a href="javascript:void(0)" class="js_live_chat_link live-chat-link"
-                            data-url="https://tawk.to/chat/64babd5bcc26a871b02a1e07/1h5sn7brq" data-type="live-chat"
+                            data-url="{{ $website->link_livechat }}" data-type="live-chat"
                             style="--image-src: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/communications/live-chat.svg?v=20250528);">
                             <h3>Dukungan 24 Jam</h3>
                             <h6>
