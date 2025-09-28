@@ -102,7 +102,7 @@
                                 <div class="player-account-input">
                                     <select name="PlayerBankAccountNumber" id="withdrawal_account_select"
                                         class="form-control">
-                                        <option value="1" data-account-holder="{{ Auth::user()->member->account_name }}">{{ Auth::user()->member->paymentChannel->name }} |
+                                        <option value="{{ Auth::user()->member->payment_channel_id }}" data-account-holder="{{ Auth::user()->member->account_name }}">{{ Auth::user()->member->paymentChannel->name }} |
                                             {{ Auth::user()->member->account_number }}</option>
                                     </select>
                                 </div>
