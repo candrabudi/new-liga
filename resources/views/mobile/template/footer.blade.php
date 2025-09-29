@@ -103,10 +103,5 @@
       "{{ $contact->link }}"@if(!$loop->last),@endif
     @endforeach
   ],
-  "contactPoint": [{
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "availableLanguage": ["Indonesian", "English"]
-  }]
 }
 </script>
