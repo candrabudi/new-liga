@@ -91,17 +91,3 @@
     </div>
 </footer>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "{{ $website->website_name }}",
-  "url": "{{ url('/') }}",
-  "logo": "{{ asset($website->website_logo) }}",
-  "sameAs": [
-    @foreach ($contacts as $contact)
-      "{{ $contact->link }}"@if(!$loop->last),@endif
-    @endforeach
-  ],
-}
-</script>
