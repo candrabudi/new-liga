@@ -22,7 +22,7 @@
 
     <meta property="og:locale" content="id_ID">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hottyjakartabetting69.cfd">
+    <meta property="og:url" content="https://jakartabetting69infosrd.cfd">
     <meta property="og:site_name" content="{{ $website->website_name }}">
     <meta property="og:title" content="{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025">
     <meta property="og:description"
@@ -93,7 +93,7 @@
         }
     </style>
 
-    <link rel="canonical" href="https://hottyjakartabetting69.cfd/">
+    <link rel="canonical" href="https://jakartabetting69infosrd.cfd/">
 
     <link rel="icon" type="image/x-icon"
         href="https://api2-lm2.imgnxb.com/images/3EVO99w9oUw/favicon_863c5b37-9da8-4ae5-99b9-1260e20b19a8_1756278924147.png">
