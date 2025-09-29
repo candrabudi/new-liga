@@ -24,7 +24,7 @@
         </div>
     </div>
 
-   @include('mobile.components.head_balance')
+    @include('mobile.components.head_balance')
     <div class="banner">
         <div id="banner_carousel" class="banner-carousel">
             @foreach ($banners as $banner)
@@ -204,290 +204,28 @@
             <i class="left-chevron left_trigger"
                 style="--image-src: url(http://dsuown9evwz4y.cloudfront.net/Images/icons/chevron-down.svg?v=20250528);"></i>
             <div class="game-list">
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Sweet Bonanza Super Scatter">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20swbonsup.webp?v=20250528"
-                                type="image/webp" />
-                            <source srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20swbonsup.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Sweet Bonanza Super Scatter" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20swbonsupe252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Sweet Bonanza Super Scatter</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Mahjong Ways">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_65.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_65.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Mahjong Ways" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_65e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Mahjong Ways</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Mahjong Wins 3 – Black Scatter">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vswaysmahwblck.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vswaysmahwblck.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Mahjong Wins 3 – Black Scatter" height="100"
-                                loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PP/vswaysmahwblcke252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Mahjong Wins 3 – Black Scatter</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Wukong - Black Scatter">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vswayswkngblck.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vswayswkngblck.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Wukong - Black Scatter" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vswayswkngblcke252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Wukong - Black Scatter</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Sticky Bandits Thunder Rail">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PLAYTECH/pop_001378cc_qsp.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PLAYTECH/pop_001378cc_qsp.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Sticky Bandits Thunder Rail" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PLAYTECH/pop_001378cc_qspe252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Sticky Bandits Thunder Rail</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Bang Gacor 1000">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vs20gacorx.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vs20gacorx.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Bang Gacor 1000" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/SLOT88/vs20gacorxe252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Bang Gacor 1000</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Le Viking">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1689.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1689.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Le Viking" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1689e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Le Viking</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Fortune Gems">
-                        <picture>
-                            <source srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/JILI/JILI_109.webp?v=20250528"
-                                type="image/webp" />
-                            <source srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/JILI/JILI_109.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Fortune Gems" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/JILI/JILI_109e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Fortune Gems</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Mahjong Ways 2">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_74.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_74.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Mahjong Ways 2" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_74e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Mahjong Ways 2</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Gates of Olympus Super Scatter">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20olympgold.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20olympgold.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Gates of Olympus Super Scatter" height="100"
-                                loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PP/vs20olympgolde252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Gates of Olympus Super Scatter</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Wild Bounty Showdown">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_135.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_135.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Wild Bounty Showdown" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/PGSOFT/PGSOFT_135e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Wild Bounty Showdown</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Lucky Twins Nexus">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_luckyTwinsNexus.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_luckyTwinsNexus.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Lucky Twins Nexus" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_luckyTwinsNexuse252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Lucky Twins Nexus</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Nexus Koi Gate">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGNexusKoiGate.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGNexusKoiGate.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Nexus Koi Gate" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGNexusKoiGatee252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Nexus Koi Gate</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="The Crypt">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/thecrypt00000000.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/thecrypt00000000.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="The Crypt" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/thecrypt00000000e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">The Crypt</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Nexus Mahjong Jackpots">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_nexusMahjongJackpots.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_nexusMahjongJackpots.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Nexus Mahjong Jackpots" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/MICROGAMING/SMG_nexusMahjongJackpotse252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Nexus Mahjong Jackpots</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Fire in the Hole 3">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/fireinthehole300.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/fireinthehole300.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Fire in the Hole 3" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/NOLIMITCITY/fireinthehole300e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Fire in the Hole 3</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="777 Rush">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/FATPANDA/vs5t8goldfp.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/FATPANDA/vs5t8goldfp.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="777 Rush" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/FATPANDA/vs5t8goldfpe252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">777 Rush</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="Hot Hot Nexus">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGHotHotNexus.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGHotHotNexus.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Hot Hot Nexus" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/HABANERO/SGHotHotNexuse252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Hot Hot Nexus</div>
-                    </a>
-                </div>
-                <div class="games-group">
-                    <a href="?login" class="game-item" data-game="Le Pharaoh">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1562.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1562.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="Le Pharaoh" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/HACKSAW/HACKSAW_1562e252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">Le Pharaoh</div>
-                    </a>
-                    <a href="?login" class="game-item" data-game="JetX">
-                        <picture>
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SMARTSOFT/JetX_JetX.webp?v=20250528"
-                                type="image/webp" />
-                            <source
-                                srcset="//dsuown9evwz4y.cloudfront.net/Images/providers/SMARTSOFT/JetX_JetX.jpg?v=20250528"
-                                type="image/jpeg" /><img alt="JetX" height="100" loading="lazy"
-                                src="dsuown9evwz4y.cloudfront.net/Images/providers/SMARTSOFT/JetX_JetXe252.jpg?v=20250528"
-                                width="100" />
-                        </picture>
-                        <div class="game-name">JetX</div>
-                    </a>
-                </div>
+                @foreach ($popularGames->chunk(2) as $gameGroup)
+                    <div class="games-group">
+                        @foreach ($gameGroup as $game)
+                            <a href="{{ Auth::user() ? route('secret.games.play', [$game->provider_id, $game->game_code]) : '?login' }}"
+                                class="game-item" data-game="{{ $game->name }}">
+                                <picture>
+                                    <source srcset="{{ $game->game_image }}" type="image/jpeg" />
+                                    <img alt="{{ $game->name }}" height="100" width="100" loading="lazy"
+                                        src="{{ $game->game_image ?? asset('images/default-game.jpg') }}" />
+
+                                </picture>
+                                <div class="game-name">{{ $game->name }}</div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
             <i class="right-chevron right_trigger"
                 style="--image-src: url(http://dsuown9evwz4y.cloudfront.net/Images/icons/chevron-down.svg?v=20250528);"></i>
         </div>
     </div>
+
 
 
     <div id="popup_modal" class="modal popup-modal" role="dialog"
@@ -517,25 +255,29 @@
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><strong><span
                                             style="color: #ffcc00;"><a style="color: #ffcc00;"
-                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 2</a></span></strong>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif
+                                                2</a></span></strong>
                                 </td>
                             </tr>
                             <tr style="padding-left: 40px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 2</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif
+                                                2</a></strong></span>
                                 </td>
                             </tr>
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 3</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif
+                                                3</a></strong></span>
                                 </td>
                             </tr>
                             <tr style="height: 35px;">
                                 <td style="width: 254.708px; text-align: center; height: 35px;"><span
                                         style="color: #ffcc00;"><strong><a style="color: #ffcc00;"
-                                                href="https://heylink.me/jakartabetting69/">Link Alternatif 4</a></strong></span>
+                                                href="https://heylink.me/jakartabetting69/">Link Alternatif
+                                                4</a></strong></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -544,12 +286,11 @@
                             kemudahan dan kenyaman bermain<br /></strong></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        id="popup_modal_dismiss_button">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="popup_modal_dismiss_button">
                         OK
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="popup_modal_cancel_button" style="display: none">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="popup_modal_cancel_button"
+                        style="display: none">
                         Tidak
                     </button>
                     <button type="button" class="btn btn-primary" id="popup_modal_confirm_button"
