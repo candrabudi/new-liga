@@ -6,50 +6,45 @@
 <!DOCTYPE html>
 <html lang="id-ID">
 
-<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
 <head>
-
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="google-site-verification" content="YFkitfaIixCDtJhuaU9tjLvDyaIt_yU4UA3okbWAgnI" />
     <title>{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025</title>
+    <meta name="title" content="{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025">
+    <meta name="description"
+        content="Rekomendasi provider slot {{ $website->website_name }} yang telah tersedia, kamu bisa bermain slot gacor dengan kemenangan maxwin mulai dari slot bet 100, 200 dan 400 perak. Slot88 terpercaya 2025 di Indonesia.">
+    <meta name="keywords"
+        content="{{ $website->website_name }}, login {{ $website->website_name }}, slot {{ $website->website_name }}, togel {{ $website->website_name }}, Slot Gacor, {{ $website->website_name }}">
 
-    <meta content="{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025" name="title" />
-    <meta
-        content="Rekomendasi provider slot {{ $website->website_name }} yang telah tersedia, kamu bisa bermain slot gacor dengan kemenangan maxwin mulai dari slot bet 100, 200 dan 400 perak. Slot88 terpercaya 2025 di Indonesia."
-        name="description" />
-    <meta
-        content="{{ $website->website_name }}, login {{ $website->website_name }}, slot {{ $website->website_name }}, togel {{ $website->website_name }}, #SlotGacor, #{{ $website->website_name }}"
-        name="keywords" />
-    <meta content="id_ID" property="og:locale" />
-    <meta content="website" property="og:type" />
-    <meta content="https://newberrycountyhistory.com" property="og:url" />
-    <meta content="{{ $website->website_name }}" property="og:site_name" />
-    <meta content="{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025" property="og:title" />
-    <meta
-        content="Rekomendasi provider slot {{ $website->website_name }} yang telah tersedia, kamu bisa bermain slot gacor dengan kemenangan maxwin mulai dari slot bet 100, 200 dan 400 perak. Slot88 terpercaya 2025 di Indonesia"
-        property="og:description" />
-    <meta
-        content="https://dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/desktop/home/download-apk-phone.webp?v=20250528"
-        property="og:image" />
-    <meta content="DarkGold" name="theme-color" />
-    <meta content="id-ID" name="language" />
-    <meta content="website" name="categories" />
-    <meta content="Indonesia" name="geo.region" />
-    <meta content="jakarta" name="geo.placename" />
-    <meta content="JEhn-XlmteBxjjmpSkJ0mCI-SfZ2ngnBZ9-9nMPkIHk" name="google-site-verification" />
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hottyjakartabetting69.cfd">
+    <meta property="og:site_name" content="{{ $website->website_name }}">
+    <meta property="og:title" content="{{ $website->website_name }}: Situs Judi Slot Online Gacor Terpercaya 2025">
+    <meta property="og:description"
+        content="Rekomendasi provider slot {{ $website->website_name }} yang telah tersedia, kamu bisa bermain slot gacor dengan kemenangan maxwin mulai dari slot bet 100, 200 dan 400 perak. Slot88 terpercaya 2025 di Indonesia">
+    <meta property="og:image"
+        content="https://dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/desktop/home/download-apk-phone.webp?v=20250528">
+
+    <meta name="theme-color" content="DarkGold">
+    <meta name="language" content="id-ID">
+    <meta name="categories" content="website">
+    <meta name="geo.region" content="Indonesia">
+    <meta name="geo.placename" content="Jakarta">
+
+    <meta name="google-site-verification" content="JEhn-XlmteBxjjmpSkJ0mCI-SfZ2ngnBZ9-9nMPkIHk">
+    <meta name="google-site-verification" content="SbqmqNuNP0DNX8ku0jb9GsL5RIkDBfPSx1KJdKbIMCI">
+
     <style>
         @font-face {
             font-family: 'digital_sans_ef_medium';
             font-display: swap;
             src: url('http://dsuown9evwz4y.cloudfront.net/Fonts/digital_sans_ef_medium.woff2') format('woff2'),
                 url('http://dsuown9evwz4y.cloudfront.net/Fonts/digital_sans_ef_medium.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
         }
 
         @font-face {
@@ -57,16 +52,12 @@
             font-display: swap;
             src: url('http://dsuown9evwz4y.cloudfront.net/Fonts/Gilroy-Bold.woff2') format('woff2'),
                 url('http://dsuown9evwz4y.cloudfront.net/Fonts/Gilroy-Bold.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
         }
 
         @font-face {
             font-family: 'Open24DisplaySt';
             font-display: swap;
             src: url('http://dsuown9evwz4y.cloudfront.net/Fonts/Open24DisplaySt.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
         }
 
         @font-face {
@@ -85,13 +76,7 @@
         h3,
         h4,
         h5,
-        h6,
-        .h1,
-        .h2,
-        .h3,
-        .h4,
-        .h5,
-        .h6 {
+        h6 {
             font-family: inherit;
         }
 
@@ -108,35 +93,28 @@
         }
     </style>
 
+    <link rel="canonical" href="https://hottyjakartabetting69.cfd/">
 
-    <link href="https://newberrycountyhistory.com/" rel="canonical" />
-    <link
-        href="../../api2-lm2.imgnxb.com/images/3EVO99w9oUw/favicon_863c5b37-9da8-4ae5-99b9-1260e20b19a8_1756278924147.png"
-        rel="icon" type="image/x-icon" />
-
+    <link rel="icon" type="image/x-icon"
+        href="https://api2-lm2.imgnxb.com/images/3EVO99w9oUw/favicon_863c5b37-9da8-4ae5-99b9-1260e20b19a8_1756278924147.png">
 
     <link rel="preload" as="image"
         href="https://api2-lm2.imgnxb.com/images/3EVO99w9oUw/id_cbm_ae7a6f29-0a4f-4ab8-b9a6-5f94c2a87b46_1753850390317.webp"
         fetchpriority="high">
 
-    <link
-        href="{{ asset('Content/Home/mobile-css.css') }}?v=FMLs1aoHhfN1WzLY28Ya1tqyb-OiVd47MD97tQH4DZQ1"rel="stylesheet" />
+    <link rel="stylesheet"
+        href="{{ asset('Content/Home/mobile-css.css') }}?v=FMLs1aoHhfN1WzLY28Ya1tqyb-OiVd47MD97tQH4DZQ1">
+    <link rel="stylesheet" href="{{ asset('Content/slick.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('Content/Theme/mobile-dark-gold-css.css') }}?v=XgGi5XzJZfv7dDSw_jzOO80DLllDL6TPbNlUUkWt22k1">
 
     @stack('styles')
-    <link href="{{ asset('Content/slick.css') }}" rel="stylesheet" />
-
-    <link href="{{ asset('Content/Theme/mobile-dark-gold-css.css') }}?v=XgGi5XzJZfv7dDSw_jzOO80DLllDL6TPbNlUUkWt22k1"
-        rel="stylesheet" />
-    <meta name="google-site-verification" content="SbqmqNuNP0DNX8ku0jb9GsL5RIkDBfPSx1KJdKbIMCI" />
-    {{-- <link rel="amphtml" href="https://{{ $website->website_name }}kwpo.site/amp/"> --}}
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1208555514286749&amp;ev=PageView&amp;noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-
-
-    {{-- <link href="https://{{ $website->website_name }}ksto.site/Content/reserve-css?v=" rel="stylesheet" /> --}}
-
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1208555514286749&ev=PageView&noscript=1" />
+    </noscript>
 </head>
+
 
 <body data-online-id="" data-logged-in="false"
     style="--expand-icon-src: url({{ asset('Content/dsuown9evwz4y.cloudfront.net/Images/icons/expande252.gif') }}?v=20250528);
@@ -329,9 +307,6 @@
             }
         });
     </script>
-    {{-- <script
-        src='https://{{ $website->website_name }}ksto.site/bundles/reserve-js?v=8ZkoZ3svUa1mm3fUna_DT0LFrjbAHZVOgr4xzLxrZZ81'
-        defer></script> --}}
 
     @if (!Auth::user())
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
