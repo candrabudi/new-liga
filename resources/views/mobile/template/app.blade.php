@@ -104,15 +104,11 @@
 
     <link rel="stylesheet"
         href="{{ asset('Content/Home/mobile-css.css') }}?v=FMLs1aoHhfN1WzLY28Ya1tqyb-OiVd47MD97tQH4DZQ1">
+    @stack('styles')
     <link rel="stylesheet" href="{{ asset('Content/slick.css') }}">
     <link rel="stylesheet"
         href="{{ asset('Content/Theme/mobile-dark-gold-css.css') }}?v=XgGi5XzJZfv7dDSw_jzOO80DLllDL6TPbNlUUkWt22k1">
 
-    @stack('styles')
-    <noscript>
-        <img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1208555514286749&ev=PageView&noscript=1" />
-    </noscript>
 </head>
 
 
