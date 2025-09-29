@@ -26,6 +26,10 @@ use App\Http\Controllers\Secret\SWithdrawController;
 use App\Http\Controllers\UpdateGameController;
 use Illuminate\Support\Facades\Route;
 
+Route::fallback(function () {
+    return redirect('/');
+});
+
 Route::get('/update/game', [UpdateGameController::class, 'getGameList']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
