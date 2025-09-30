@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Website;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
@@ -69,6 +70,8 @@ class AuthController extends Controller
 
     public function registerProcess(Request $request)
     {
+        DB::beginTransaction(); // mulai transaction
+
         try {
             $validated = $request->validate([
                 'UserName' => 'required|string|min:3|max:12|unique:users,username|regex:/^[0-9a-zA-Z]+$/',
@@ -86,7 +89,6 @@ class AuthController extends Controller
                 'BankAccountNumber.regex' => 'Nomor rekening hanya boleh angka.',
             ]);
 
-            // Simpan user
             $user = new User();
             $user->username = strtolower($validated['UserName']);
             $user->password = Hash::make($validated['Password']);
@@ -96,7 +98,6 @@ class AuthController extends Controller
             $user->phone_number = $validated['WhatsApp'] ?? null;
             $user->save();
 
-            // Simpan member
             $member = new Member();
             $member->user_id = $user->id;
             $member->ext_code = 'jktbet'.$user->username;
@@ -106,8 +107,7 @@ class AuthController extends Controller
             $member->account_name = $validated['BankAccountName'] ?? null;
             $member->save();
 
-            // === Tambahkan proses create user di provider (Telo API) ===
-            $credential = ProviderCredential::first(); // ambil dari DB
+            $credential = ProviderCredential::first();
 
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
@@ -121,9 +121,7 @@ class AuthController extends Controller
             $apiData = $response->json();
 
             if (!$response->successful() || $apiData['status'] != 1) {
-                // kalau gagal create user di provider, rollback lokal
-                $user->delete();
-                $member->delete();
+                DB::rollBack();
 
                 return response()->json([
                     'status' => false,
@@ -132,7 +130,7 @@ class AuthController extends Controller
                 ], 500);
             }
 
-            // kalau sukses login otomatis
+            DB::commit();
             Auth::login($user);
 
             return response()->json([
@@ -146,12 +144,16 @@ class AuthController extends Controller
                 ],
             ], 201);
         } catch (ValidationException $e) {
+            DB::rollBack();
+
             return redirect()->back()
                 ->withErrors($e->errors())
                 ->withInput()
                 ->with('status', false)
                 ->with('message', 'Validasi gagal, silakan periksa kembali data Anda.');
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return redirect()->back()
                 ->with('status', false)
                 ->with('message', 'Terjadi kesalahan pada server: '.$e->getMessage());
