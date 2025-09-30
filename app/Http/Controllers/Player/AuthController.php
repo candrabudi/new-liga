@@ -87,9 +87,7 @@ class AuthController extends Controller
                 'BankAccountNumber.regex' => 'Nomor rekening hanya boleh angka.',
             ]);
 
-            // Semua proses dalam satu transaction
             DB::transaction(function () use ($validated) {
-                // Buat User
                 $user = new User();
                 $user->username = strtolower($validated['UserName']);
                 $user->password = Hash::make($validated['Password']);
@@ -137,16 +135,25 @@ class AuthController extends Controller
                     ],
                 ], 201);
             });
+
+            return response()->json([
+                'status' => true,
+                'code' => 201,
+                'message' => 'Registrasi berhasil',
+            ], 201);
         } catch (ValidationException $e) {
-            return redirect()->back()
-                ->withErrors($e->errors())
-                ->withInput()
-                ->with('status', false)
-                ->with('message', 'Validasi gagal, silakan periksa kembali data Anda.');
+            return response()->json([
+                'status' => false,
+                'code' => 422,
+                'message' => 'Validasi gagal, silakan periksa kembali data Anda.',
+                'errors' => $e->errors(),
+            ], 422);
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('status', false)
-                ->with('message', 'Terjadi kesalahan pada server: '.$e->getMessage());
+            return response()->json([
+                'status' => false,
+                'code' => 500,
+                'message' => 'Terjadi kesalahan pada server: '.$e->getMessage(),
+            ], 500);
         }
     }
 
