@@ -22,7 +22,7 @@
 
             <div class="side-menu-user-info" bis_skin_checked="1">
                 <div class="profile-menu-user-info" bis_skin_checked="1">
-                    <span class="username">seabreeze</span>
+                    <span class="username">{{ Auth::user()->username }}</span>
                     <div class="user-loyalty-menu" bis_skin_checked="1">
                         <img alt="Bronze" loading="lazy"
                             src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/loyalty/badge/bronze.svg?v=20250528">
