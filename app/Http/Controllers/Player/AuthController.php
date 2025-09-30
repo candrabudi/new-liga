@@ -14,14 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
-
 class AuthController extends Controller
 {
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Hash;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Validation\ValidationException;
-    use Illuminate\Support\Facades\Http;
 
     public function login()
     {
