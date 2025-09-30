@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+
 class AuthController extends Controller
 {
-
     public function login()
     {
         return redirect()->guest('/?login');
@@ -75,8 +75,8 @@ class AuthController extends Controller
                 'UserName' => 'required|string|min:3|max:12|unique:users,username|regex:/^[0-9a-zA-Z]+$/',
                 'Password' => 'required|string|min:8|max:20',
                 'FullName' => 'required|string|max:100',
-                'Email' => 'required|email|max:100|unique:users,email',
-                'WhatsApp' => 'required|string|max:16|regex:/^[0-9\-]+$/',
+                'Email' => 'nullable|email|max:100|unique:users,email',
+                'WhatsApp' => 'nullable|string|max:16|regex:/^[0-9\-]+$/',
                 'ReferrerCode' => 'nullable|string|max:50',
                 'SelectedBank' => 'required|exists:payment_channels,id',
                 'BankAccountNumber' => 'required|string|max:24|regex:/^[0-9\-]+$/',
@@ -93,13 +93,13 @@ class AuthController extends Controller
                 $user = new User();
                 $user->username = strtolower($validated['UserName']);
                 $user->password = Hash::make($validated['Password']);
-                $user->email = $validated['Email'];
+                $user->email = $validated['Email'] ?? '-';
                 $user->role = 'player';
                 $user->full_name = $validated['FullName'];
-                $user->phone_number = $validated['WhatsApp'];
-                $user->save(); // wajib sukses
+                $user->phone_number = $validated['WhatsApp'] ?? '-';
+                $user->save();
+                $user->fresh();
 
-                // Buat Member
                 $member = new Member();
                 $member->user_id = $user->id;
                 $member->ext_code = 'jktbet'.$user->username;
@@ -107,9 +107,8 @@ class AuthController extends Controller
                 $member->payment_channel_id = $validated['SelectedBank'];
                 $member->account_number = $validated['BankAccountNumber'];
                 $member->account_name = $validated['BankAccountName'];
-                $member->save(); // wajib sukses
+                $member->save();
 
-                // Buat user di provider
                 $credential = ProviderCredential::first();
                 $response = Http::withHeaders(['Accept' => 'application/json'])
                     ->post('https://api.telo.is/api/v2/user_create', [
@@ -125,7 +124,6 @@ class AuthController extends Controller
                     throw new \Exception('Gagal membuat user di provider: '.($apiData['msg'] ?? 'Unknown error'));
                 }
 
-                // Login user setelah semua berhasil
                 Auth::login($user);
 
                 return response()->json([
