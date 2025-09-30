@@ -17,6 +17,12 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Validation\ValidationException;
+    use Illuminate\Support\Facades\Http;
+
     public function login()
     {
         return redirect()->guest('/?login');
@@ -70,90 +76,82 @@ class AuthController extends Controller
 
     public function registerProcess(Request $request)
     {
-        DB::beginTransaction(); // mulai transaction
-
         try {
             $validated = $request->validate([
                 'UserName' => 'required|string|min:3|max:12|unique:users,username|regex:/^[0-9a-zA-Z]+$/',
                 'Password' => 'required|string|min:8|max:20',
                 'FullName' => 'required|string|max:100',
-                'Email' => 'nullable|email|max:100|unique:users,email',
-                'WhatsApp' => 'nullable|string|max:16|regex:/^[0-9\-]+$/',
+                'Email' => 'required|email|max:100|unique:users,email',
+                'WhatsApp' => 'required|string|max:16|regex:/^[0-9\-]+$/',
                 'ReferrerCode' => 'nullable|string|max:50',
-                'SelectedBank' => 'nullable|exists:payment_channels,id',
-                'BankAccountNumber' => 'nullable|string|max:24|regex:/^[0-9\-]+$/',
-                'BankAccountName' => 'nullable|string|max:100',
+                'SelectedBank' => 'required|exists:payment_channels,id',
+                'BankAccountNumber' => 'required|string|max:24|regex:/^[0-9\-]+$/',
+                'BankAccountName' => 'required|string|max:100',
             ], [
                 'UserName.regex' => 'Nama pengguna hanya boleh berisi huruf dan angka tanpa spasi.',
                 'WhatsApp.regex' => 'Nomor WhatsApp hanya boleh angka.',
                 'BankAccountNumber.regex' => 'Nomor rekening hanya boleh angka.',
             ]);
 
-            $user = new User();
-            $user->username = strtolower($validated['UserName']);
-            $user->password = Hash::make($validated['Password']);
-            $user->email = $validated['Email'] ?? null;
-            $user->role = 'player';
-            $user->full_name = $validated['FullName'];
-            $user->phone_number = $validated['WhatsApp'] ?? null;
-            $user->save();
+            // Semua proses dalam satu transaction
+            DB::transaction(function () use ($validated) {
+                // Buat User
+                $user = new User();
+                $user->username = strtolower($validated['UserName']);
+                $user->password = Hash::make($validated['Password']);
+                $user->email = $validated['Email'];
+                $user->role = 'player';
+                $user->full_name = $validated['FullName'];
+                $user->phone_number = $validated['WhatsApp'];
+                $user->save(); // wajib sukses
 
-            $member = new Member();
-            $member->user_id = $user->id;
-            $member->ext_code = 'jktbet'.$user->username;
-            $member->referrer_code = $validated['ReferrerCode'] ?? null;
-            $member->payment_channel_id = $validated['SelectedBank'] ?? null;
-            $member->account_number = $validated['BankAccountNumber'] ?? null;
-            $member->account_name = $validated['BankAccountName'] ?? null;
-            $member->save();
+                // Buat Member
+                $member = new Member();
+                $member->user_id = $user->id;
+                $member->ext_code = 'jktbet'.$user->username;
+                $member->referrer_code = $validated['ReferrerCode'];
+                $member->payment_channel_id = $validated['SelectedBank'];
+                $member->account_number = $validated['BankAccountNumber'];
+                $member->account_name = $validated['BankAccountName'];
+                $member->save(); // wajib sukses
 
-            $credential = ProviderCredential::first();
+                // Buat user di provider
+                $credential = ProviderCredential::first();
+                $response = Http::withHeaders(['Accept' => 'application/json'])
+                    ->post('https://api.telo.is/api/v2/user_create', [
+                        'agent_code' => $credential->agent_code,
+                        'agent_token' => $credential->agent_token,
+                        'user_code' => $member->ext_code,
+                        'deposit_amount' => 0,
+                    ]);
 
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-            ])->post('https://api.telo.is/api/v2/user_create', [
-                'agent_code' => $credential->agent_code,
-                'agent_token' => $credential->agent_token,
-                'user_code' => $member->ext_code,
-                'deposit_amount' => 0,
-            ]);
+                $apiData = $response->json();
 
-            $apiData = $response->json();
+                if (!$response->successful() || $apiData['status'] != 1) {
+                    throw new \Exception('Gagal membuat user di provider: '.($apiData['msg'] ?? 'Unknown error'));
+                }
 
-            if (!$response->successful() || $apiData['status'] != 1) {
-                DB::rollBack();
+                // Login user setelah semua berhasil
+                Auth::login($user);
 
                 return response()->json([
-                    'status' => false,
-                    'code' => 500,
-                    'message' => 'Gagal membuat user di provider: '.($apiData['msg'] ?? 'Unknown error'),
-                ], 500);
-            }
-
-            DB::commit();
-            Auth::login($user);
-
-            return response()->json([
-                'status' => true,
-                'code' => 201,
-                'message' => 'Registrasi berhasil & user berhasil dibuat di provider',
-                'data' => [
-                    'user' => $user,
-                    'member' => $member,
-                    'provider' => $apiData,
-                ],
-            ], 201);
+                    'status' => true,
+                    'code' => 201,
+                    'message' => 'Registrasi berhasil & user berhasil dibuat di provider',
+                    'data' => [
+                        'user' => $user,
+                        'member' => $member,
+                        'provider' => $apiData,
+                    ],
+                ], 201);
+            });
         } catch (ValidationException $e) {
-            DB::rollBack();
-
             return redirect()->back()
                 ->withErrors($e->errors())
                 ->withInput()
                 ->with('status', false)
                 ->with('message', 'Validasi gagal, silakan periksa kembali data Anda.');
         } catch (\Exception $e) {
-            DB::rollBack();
-
             return redirect()->back()
                 ->with('status', false)
                 ->with('message', 'Terjadi kesalahan pada server: '.$e->getMessage());
