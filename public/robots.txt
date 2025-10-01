@@ -6,7 +6,7 @@
 User-agent: *
 Allow: /
 # Opsional: jika ingin mencegah AI training
-Content-signal: ai-train=no
+Content-signal: ai-train=yes
 
 # Jika ingin memberikan izin eksplisit untuk search engine populer
 User-agent: Googlebot
