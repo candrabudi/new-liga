@@ -91,9 +91,10 @@ class DepositController extends Controller
 
         $paymentOwner = PaymentOwner::where('account_number', $request->ToAccountNumber)->first();
 
-        $kyc = KycDocument::where('referrer_code', $user->member->referral_code)
+        $kyc = KycDocument::where('referral_code', $user->member->referrer_code)
             ->where('status', 'approved')
             ->first();
+
         $transaction = Transaction::create([
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -103,7 +104,7 @@ class DepositController extends Controller
             'proof' => $proofPath,
             'amount' => $request->Amount,
             'reason' => "Deposit dari {$request->FromAccountNumber} ke {$request->ToAccountNumber}",
-            'refer_id' => $kyc->user_id ?? null,
+            'referrer_id' => $kyc->user_id ?? null,
         ]);
 
         return response()->json([
@@ -146,7 +147,7 @@ class DepositController extends Controller
 
         $paymentOwner = PaymentOwner::findOrFail($request->ToQrisAccount);
 
-        $kyc = KycDocument::where('referrer_code', $user->member->referral_code)
+        $kyc = KycDocument::where('referral_code', $user->member->referrer_code)
             ->where('status', 'approved')
             ->first();
         $transaction = Transaction::create([
@@ -158,7 +159,7 @@ class DepositController extends Controller
             'proof' => $proofPath,
             'amount' => $request->Amount,
             'reason' => "Deposit via QRIS ke {$paymentOwner->account_name}",
-            'refer_id' => $kyc->user_id ?? null,
+            'referrer_id' => $kyc->user_id ?? null,
         ]);
 
         return response()->json([
