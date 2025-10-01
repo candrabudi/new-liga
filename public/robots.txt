@@ -1,7 +1,21 @@
-User-agent: Googlebot
-User-agent: Slurp
-User-agent: bingbot
-Allow: /
+# Robots.txt sederhana dan crawl-friendly
+# Mengizinkan semua search engine untuk mengindeks situs
+# Membatasi AI training jika perlu (opsional)
 
+# Semua bot
 User-agent: *
 Allow: /
+# Opsional: jika ingin mencegah AI training
+Content-signal: ai-train=no
+
+# Jika ingin memberikan izin eksplisit untuk search engine populer
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Tidak ada larangan untuk bot lainnya, biarkan mereka crawl
