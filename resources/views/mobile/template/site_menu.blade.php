@@ -198,7 +198,7 @@
             </a>
         </li>
         <li>
-            <a href="/mobile/referral">
+            <a href="/mobile/referral/guidance">
                 <i data-icon="referral"
                     style="background-image: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/layout/menu/referral.svg?v=20250528);"></i>
                 Referral

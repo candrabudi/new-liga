@@ -66,7 +66,7 @@
                             <div class="social-media-item">
                                 <button data-sharer="facebook"
                                     data-title="{{ $promotion->title }} 
-Join di LIGAMANSION2 dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
+Join di {{ $website->website_name }} dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
 Syarat dan ketentuan berlaku!"
                                     data-url="{{ url('/promotion/details/' . $promotion->slug) }}">
                                     <img alt="Facebook" loading="lazy"
@@ -79,7 +79,7 @@ Syarat dan ketentuan berlaku!"
                             <div class="social-media-item">
                                 <button data-sharer="whatsapp"
                                     data-title="{{ $promotion->title }} 
-Join di LIGAMANSION2 dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
+Join di {{ $website->website_name }} dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
 Syarat dan ketentuan berlaku!"
                                     data-url="{{ url('/promotion/details/' . $promotion->slug) }}">
                                     <img alt="Whatsapp" loading="lazy"
@@ -92,7 +92,7 @@ Syarat dan ketentuan berlaku!"
                             <div class="social-media-item">
                                 <button data-sharer="telegram"
                                     data-title="{{ $promotion->title }} 
-Join di LIGAMANSION2 dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
+Join di {{ $website->website_name }} dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
 Syarat dan ketentuan berlaku!"
                                     data-url="{{ url('/mobile/promotion/details/' . $promotion->slug) }}">
                                     <img alt="Telegram" loading="lazy"
@@ -105,7 +105,7 @@ Syarat dan ketentuan berlaku!"
                             <div class="social-media-item">
                                 <button data-sharer="twitter"
                                     data-title="{{ $promotion->title }} 
-Join di LIGAMANSION2 dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
+Join di {{ $website->website_name }} dan dapatkan bonus menarik setiap harinya, jangan sampai ketinggalan!  
 Syarat dan ketentuan berlaku!"
                                     data-url="{{ url('/mobile/promotions/details/' . $promotion->slug) }}">
                                     <img alt="Twitter" loading="lazy"

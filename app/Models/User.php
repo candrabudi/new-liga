@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'full_name',
@@ -43,5 +44,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Game::class, 'game_favourites')
             ->withTimestamps();
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }

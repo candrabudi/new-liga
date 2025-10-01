@@ -8,6 +8,7 @@ use App\Http\Controllers\Player\DepositController;
 use App\Http\Controllers\Player\GameController;
 use App\Http\Controllers\Player\HomeController;
 use App\Http\Controllers\Player\PromotionController;
+use App\Http\Controllers\Player\ReferralController;
 use App\Http\Controllers\Player\WithdrawController;
 use App\Http\Controllers\Secret\SAdjustmentController;
 use App\Http\Controllers\Secret\SAuthController;
@@ -79,6 +80,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('account.password');
 
     Route::post('/Profile/Password', [AccountController::class, 'updatePassword']);
+    Route::get('/mobile/profile', [AccountController::class, 'profile'])->name('account.profile');
+    Route::post('/mobile/profile/save', [AccountController::class, 'storeOrUpdate'])->name('profile.save');
+    Route::get('/mobile/referral/guidance', [ReferralController::class, 'index'])->name('referral.guidance');
+    Route::get('/mobile/referral/signups-summary', [ReferralController::class, 'signupsSummary'])->name('referral.signups.summary');
 
     Route::get('/secret/games/play/{providerId}/{gameCode}', [GameController::class, 'playGame'])
         ->name('secret.games.play');
