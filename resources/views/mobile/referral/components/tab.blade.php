@@ -22,7 +22,7 @@
         </a>
 
         {{-- Riwayat Klaim --}}
-        <a href="{{ url('/mobile/referral/claimed-history') }}" 
+        <a href="{{ url('/mobile/referral/commision') }}" 
            data-active="{{ request()->is('mobile/referral/claimed-history') ? 'true' : 'false' }}">
             <i data-icon="referral-claimed-history"
                style="--image-src: url(//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/tabs/referral-claimed-history.svg?v=20250528);
