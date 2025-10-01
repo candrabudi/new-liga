@@ -64,7 +64,7 @@
                             <p><strong>Kode Referral:</strong> {{ $kyc->referral_code }}</p>
                             <p><strong>Link Referral:</strong></p>
                             <input type="text" id="referral_link" class="form-control"
-                                value="{{ url('/register?ref=' . $kyc->referral_code) }}" readonly>
+                                value="{{ url('/mobile/register?ref=' . $kyc->referral_code) }}" readonly>
                             <button class="btn btn-primary copy-btn" onclick="copyReferral()">
                                 <i class='bx bx-copy'></i> Salin Link
                             </button>
