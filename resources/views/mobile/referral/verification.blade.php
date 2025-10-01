@@ -36,105 +36,64 @@
 @section('content')
     @include('mobile.referral.components.tab')
 
-    <div class="standard-form-container" bis_skin_checked="1">
-        <div class="standard-form-title" bis_skin_checked="1">
+    <div class="standard-form-container" style="padding: 20px;">
+        <div class="standard-form-title">
             Verifikasi Akun Anda
         </div>
-        <div class="container" bis_skin_checked="1">
-            <div class="row referral-verification-container" bis_skin_checked="1">
-                
+        <div class="container">
+            <div class="row referral-verification-container">
+                <form action="{{ route('kyc.store') }}" enctype="multipart/form-data" id="kyc_form" method="post" novalidate>
+                    @csrf
+                    <div id="alert_box"></div>
 
-                <form action="/Referral/SubmitReferralVerification" enctype="multipart/form-data" id="referral_form"
-                    method="post" name="referralForm" novalidate="novalidate"><input name="__RequestVerificationToken"
-                        type="hidden"
-                        value="p1PXvyoP9yWFvP-_o9XJsE5vZIkqIRF_xrzlh4GmlOqbyojz_uSd56ZWLZbiqY5V6T1R8196f0pfxBOwWW4egNx33Ao1">
-                    <div data-is-contact-verified="true" bis_skin_checked="1">
-
-                        <div class="form-group" bis_skin_checked="1">
-                            <div class="standard-form-note with-icon" bis_skin_checked="1">
-                                <div bis_skin_checked="1">
-                                    <span>Catatan:</span>
-                                    <ol>
-                                        <li>Mohon verifikasi <b>Nomor WhatsApp</b> pada halaman <b>Profile</b> untuk bisa
-                                            melanjutkan proses verifikasi.</li>
-                                        <li>Untuk merubah <b>Nomor WhatsApp</b>, kunjungi halaman profil.</li>
-                                        <li><b>Nama lengkap</b> harus sama dengan <b>Nama KTP</b> dan <b>Nama Rekening</b>.
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" bis_skin_checked="1">
-                            <label for="FullName">
-                                Nama Lengkap
-                            </label>
-                            <span data-section="asterisk">*</span>
-                            <div data-section="input" bis_skin_checked="1">
-                                <input maxlength="100" autocomplete="off" class="form-control" data-val="true"
-                                    data-val-regex="The field FullName must match the regular expression '^[\u4e00-\u9fa5\u0E00-\u0E7F\u0400-\u04FF\u00C0-\u00FF\u0100-\u017F\u0180-\u024Fa-zA-Z0-9\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\u0905-\u097F\u3000 ]+$'."
-                                    data-val-regex-pattern="^[\u4e00-\u9fa5\u0E00-\u0E7F\u0400-\u04FF\u00C0-\u00FF\u0100-\u017F\u0180-\u024Fa-zA-Z0-9\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\u0905-\u097F\u3000 ]+$"
-                                    data-val-required="The FullName field is required." id="FullName" name="FullName"
-                                    placeholder="Nama Lengkap Anda" required="required" type="text"
-                                    value="BAGUS CANDRA BUDI LAKSANA">
-                                <span class="standard-required-message">Nama lengkap hanya boleh berisi karakter
-                                    alfanumerik.</span>
-                            </div>
-                        </div>
-                        <div class="form-group" bis_skin_checked="1">
-                            <label for="IDCardPhoto">
-                                Foto KTP
-                            </label>
-                            <span data-section="asterisk">*</span>
-                            <div data-section="input" bis_skin_checked="1">
-                                <input class="form-control" data-val="true"
-                                    data-val-required="The VerificationFile field is required." id="VerificationFile"
-                                    name="VerificationFile" required="required" type="file" value="">
-                                <span class="standard-required-message">Kolom ini tidak boleh kosong.</span>
-                            </div>
-                            <p class="simple-form-note">Format file: <b>PNG</b>, <b>JPEG</b> dan <b>JPG (</b>Maks
-                                <b>5MB)</b>.</p>
-                        </div>
-                        <div class="form-group terms-conditions-container" bis_skin_checked="1">
-                            <h3>Syarat &amp; Ketentuan</h3>
-                            <ol class="referral-verification-terms-conditions">
-                                <li>Saya, sebagai pengguna, menyetujui bahwa verifikasi KTP adalah syarat wajib untuk
-                                    menggunakan layanan ini, demi keamanan dan integritas platform.</li>
-                                <li>Saya menegaskan bahwa saya tidak akan terlibat dalam tindakan phising. Saya memahami
-                                    bahwa tindakan ini dapat mengakibatkan akun diblokir.</li>
-                                <li>Terkait dengan perjanjian ini, saya dengan tegas berkomitmen untuk tidak mempromosikan
-                                    referral saya di situs web pemerintahan atau lembaga sejenis.</li>
-                                <li>Saya memahami dan menyetujui bahwa verifikasi KTP harus dilakukan dengan data pribadi
-                                    yang sesuai dengan Kartu Tanda Penduduk (KTP) yang saya miliki, tanpa adanya perubahan
-                                    atau manipulasi.</li>
-                                <li>Saya memahami dan menyetujui bahwa penggunaan data KTP untuk proses verifikasi hanya
-                                    akan digunakan untuk tujuan tersebut dan tidak akan disalahgunakan.</li>
-                                <li>Saya setuju bahwa syarat dan ketentuan ini adalah mutlak dan dapat diubah atau
-                                    diperbarui sewaktu-waktu tanpa pemberitahuan sebelumnya.</li>
+                    <div class="form-group">
+                        <div class="standard-form-note with-icon">
+                            <span>Catatan:</span>
+                            <ol>
+                                <li>Mohon verifikasi <b>Nomor WhatsApp</b> pada halaman <b>Profile</b> untuk bisa
+                                    melanjutkan proses verifikasi.</li>
+                                <li>Untuk merubah <b>Nomor WhatsApp</b>, kunjungi halaman profil.</li>
+                                <li><b>Nama lengkap</b> harus sama dengan <b>Nama KTP</b> dan <b>Nama Rekening</b>.
+                                </li>
                             </ol>
                         </div>
-                        <div class="form-group" bis_skin_checked="1">
-                            <div class="standard-checkbox-container" bis_skin_checked="1">
-                                <input type="checkbox" name="TermsConditions" id="terms_condition_checkbox" required="">
-                                <label for="terms_condition_checkbox">Saya telah membaca, memberikan persetujuan, dan
-                                    menyetujui syarat dan ketentuan di atas dan setuju untuk melanjutkan proses ini.</label>
-                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FullName">Nama Lengkap</label>
+                        <span data-section="asterisk">*</span>
+                        <input maxlength="150" class="form-control" id="FullName" name="full_name"
+                            placeholder="Nama Lengkap Anda" required type="text" value="{{ Auth::user()->full_name }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="VerificationFile">Foto KTP</label>
+                        <span data-section="asterisk">*</span>
+                        <input class="form-control" id="VerificationFile" name="file" required type="file"
+                            accept="image/png,image/jpeg">
+                        <p class="simple-form-note">Format file: <b>PNG</b>, <b>JPEG</b>, <b>JPG</b> (Maks <b>5MB</b>).</p>
+                    </div>
+
+                    <input type="hidden" name="document_type" value="KTP">
+
+                    <div class="form-group terms-conditions-container">
+                        <h3>Syarat &amp; Ketentuan</h3>
+                        <ol>
+                            <li>Saya menyetujui bahwa verifikasi KTP adalah syarat wajib untuk menggunakan layanan ini.</li>
+                            <li>Saya tidak akan terlibat dalam tindakan phising atau manipulasi data.</li>
+                            <li>Data KTP hanya digunakan untuk tujuan verifikasi.</li>
+                        </ol>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="standard-checkbox-container">
+                            <input type="checkbox" id="terms_condition_checkbox" required>
+                            <label for="terms_condition_checkbox">Saya telah membaca dan menyetujui syarat & ketentuan.</label>
                         </div>
-                        <div class="verification-footer" bis_skin_checked="1">
-                            <picture>
-                                <source
-                                    srcset="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/referral/footer/asf.webp?v=20250528"
-                                    type="image/webp">
-                                <source
-                                    srcset="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/referral/footer/asf.png?v=20250528"
-                                    type="image/png"><img loading="lazy"
-                                    src="//dsuown9evwz4y.cloudfront.net/Images/~normad-alpha/dark-gold/mobile/referral/footer/asf.png?v=20250528">
-                            </picture>
-                            <div class="line" bis_skin_checked="1"></div>
-                        </div>
-                        <div class="standard-button-group" bis_skin_checked="1">
-                            <input type="submit" class="standard-secondary-button" id="submit_button" value="Kirim"
-                                disabled="">
-                        </div>
+                    </div>
+
+                    <div class="standard-button-group">
+                        <input type="submit" class="standard-secondary-button" id="submit_button" value="Kirim" disabled>
                     </div>
                 </form>
             </div>
@@ -143,38 +102,53 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        $(function() {
-            // Default range
-            let start = moment().startOf('month');
-            let end = moment().endOf('month');
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("kyc_form");
+            const submitBtn = document.getElementById("submit_button");
+            const alertBox = document.getElementById("alert_box");
+            const checkbox = document.getElementById("terms_condition_checkbox");
 
-            function updateInputs(start, end) {
-                $('#date_range_picker').val(start.format('DD-MMM-YYYY') + ' — ' + end.format('DD-MMM-YYYY'));
-                $('#starting_date').val(start.format('DD-MMM-YYYY'));
-                $('#ending_date').val(end.format('DD-MMM-YYYY'));
-            }
+            // Enable tombol setelah centang
+            checkbox.addEventListener("change", () => {
+                submitBtn.disabled = !checkbox.checked;
+            });
 
-            // Init daterangepicker
-            $('#date_range_picker').daterangepicker({
-                startDate: start,
-                endDate: end,
-                locale: {
-                    format: 'DD-MMM-YYYY'
-                },
-                ranges: {
-                    'Hari Ini': [moment(), moment()],
-                    'Kemarin': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    '7 Hari Terakhir': [moment().subtract(6, 'days'), moment()],
-                    '30 Hari Terakhir': [moment().subtract(29, 'days'), moment()],
-                    'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
-                    'Bulan Lalu': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                        'month').endOf('month')]
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await axios.post(form.action, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                        }
+                    });
+
+                    showAlert("Dokumen berhasil diupload, menunggu verifikasi admin.", "success");
+                    console.log(response.data);
+
+                } catch (error) {
+                    let message = "Terjadi kesalahan!";
+                    if (error.response) {
+                        message = error.response.data?.message || message;
+                    }
+                    showAlert(message, "error");
+                } finally {
+                    submitBtn.disabled = false;
                 }
-            }, updateInputs);
+            });
 
-            // Set default value on load
-            updateInputs(start, end);
+            function showAlert(message, type) {
+                alertBox.innerText = message;
+                alertBox.className = "";
+                alertBox.classList.add(type);
+                alertBox.style.display = "block";
+            }
         });
     </script>
 @endpush

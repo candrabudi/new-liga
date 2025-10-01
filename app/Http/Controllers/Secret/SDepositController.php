@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Secret;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\ProviderCredential;
-use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class SDepositController extends Controller
 {
@@ -44,10 +45,10 @@ class SDepositController extends Controller
 
     public function historyList(Request $request)
     {
-        $search     = $request->input('search');
-        $status     = $request->input('status');
+        $search = $request->input('search');
+        $status = $request->input('status');
         $start_date = $request->input('start_date');
-        $end_date   = $request->input('end_date');
+        $end_date = $request->input('end_date');
 
         $query = Transaction::with(['user', 'paymentChannel'])
             ->where('type', 'deposit')
@@ -78,42 +79,89 @@ class SDepositController extends Controller
     public function approve($id)
     {
         return DB::transaction(function () use ($id) {
-            $trx = Transaction::where('id', $id)->where('status', 'pending')->firstOrFail();
+            $trx = Transaction::where('id', $id)
+                ->where('status', 'pending')
+                ->firstOrFail();
 
-            $member     = Member::where('user_id', $trx->user_id)->firstOrFail();
-            $credential = ProviderCredential::first(); // agent_code & agent_token
+            $member = Member::where('user_id', $trx->user_id)->firstOrFail();
+            $credential = ProviderCredential::first();
 
-            // Panggil API user_deposit
             $response = Http::post('https://api.telo.is/api/v2/user_deposit', [
-                'agent_code'  => $credential->agent_code,
+                'agent_code' => $credential->agent_code,
                 'agent_token' => $credential->agent_token,
-                'user_code'   => $member->ext_code,
-                'amount'      => $trx->amount,
+                'user_code' => $member->ext_code,
+                'amount' => $trx->amount,
             ]);
 
             $data = $response->json();
 
             if ($response->successful() && isset($data['status']) && $data['status'] == 1) {
-                // update transaksi
-                $trx->status     = 'approved';
+                $trx->status = 'approved';
                 $trx->updated_by = Auth::id();
                 $trx->save();
 
-                // update saldo member
                 $member->balance += $trx->amount;
                 $member->save();
 
+                if (!empty($member->referrer_code)) {
+                    $referrerUser = DB::table('kyc_documents')
+                        ->where('referral_code', $member->referrer_code)
+                        ->where('status', 'approved')
+                        ->first();
+
+                    if ($referrerUser) {
+                        $commissionSetting = \App\Models\ReferralCommissionSetting::first();
+                        $percentage = $commissionSetting->percentage ?? 0;
+
+                        if ($percentage > 0) {
+                            $commissionAmount = ($trx->amount * $percentage) / 100;
+
+                            $commissionTrx = new Transaction();
+                            $commissionTrx->user_id = $referrerUser->user_id;
+                            $commissionTrx->referred_user_id = $trx->user_id;
+                            $commissionTrx->type = 'commission';
+                            $commissionTrx->trx_type = 'credit';
+                            $commissionTrx->status = 'approved';
+                            $commissionTrx->amount = $commissionAmount;
+                            $commissionTrx->reason = "Komisi referral dari deposit user ID {$trx->user_id}";
+                            $commissionTrx->updated_by = Auth::id();
+                            $commissionTrx->save();
+
+                            $referrerMember = Member::where('user_id', $referrerUser->user_id)->first();
+                            if ($referrerMember) {
+                                $referrerMember->balance += $commissionAmount;
+                                $referrerMember->save();
+
+                                $commissionResponse = Http::post('https://api.telo.is/api/v2/user_deposit', [
+                                    'agent_code' => $credential->agent_code,
+                                    'agent_token' => $credential->agent_token,
+                                    'user_code' => $referrerMember->ext_code,
+                                    'amount' => $commissionAmount,
+                                ]);
+
+                                if (!$commissionResponse->successful()) {
+                                    Log::warning('Gagal deposit komisi referral ke provider', [
+                                        'referrer_user_id' => $referrerUser->user_id,
+                                        'source_user_id' => $trx->user_id,
+                                        'commissionAmount' => $commissionAmount,
+                                        'response' => $commissionResponse->body(),
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 return response()->json([
                     'success' => true,
-                    'message' => 'Deposit disetujui, saldo bertambah dan deposit ke provider berhasil.',
-                    'data'    => $data
+                    'message' => 'Deposit disetujui, saldo bertambah, deposit ke provider berhasil & komisi referral diberikan.',
+                    'data' => $data,
                 ]);
             }
 
-            // Gagal deposit ke provider
             return response()->json([
                 'success' => false,
-                'message' => $data['msg'] ?? 'Gagal melakukan deposit ke provider.'
+                'message' => $data['msg'] ?? 'Gagal melakukan deposit ke provider.',
             ], 422);
         });
     }
@@ -122,7 +170,7 @@ class SDepositController extends Controller
     public function reject(Request $request, $id)
     {
         $request->validate([
-            'reason' => 'required|string|max:255'
+            'reason' => 'required|string|max:255',
         ]);
 
         $trx = Transaction::where('id', $id)->where('status', 'pending')->firstOrFail();
@@ -134,7 +182,7 @@ class SDepositController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Deposit ditolak.'
+            'message' => 'Deposit ditolak.',
         ]);
     }
 }

@@ -33,7 +33,7 @@
                     <div class="balance" bis_skin_checked="1">
                         <div class="real-balance" bis_skin_checked="1">
                             IDR
-                            <span class="total_balance">0.00</span>
+                            <span class="total_balance">{{ number_format(round(Auth::user()->member->balance), 0, ',', '.') }}</span>
                         </div>
                         <div class="locked-balance locked_balance_container" hidden="" bis_skin_checked="1">
                             <div class="lock-balance-assets" bis_skin_checked="1"><img id="locked-balance"

@@ -65,11 +65,12 @@
                                     <div class="referral-code-header">
                                         <label>Kode Referral</label>
                                     </div>
-                                    <div class="referral-code-content">
+                                    <div class="referral-code-content" style="display: block;">
                                         <input autocomplete="off" class="form-control referral-code-input" id="ReferrerCode"
-                                            name="ReferrerCode" placeholder="Kode Referral" type="text">
+                                            name="ReferrerCode" placeholder="Kode Referral" type="text" readonly>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -128,6 +129,21 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref');
+            const input = document.getElementById("ReferrerCode");
+
+            if (ref) {
+                input.value = ref.trim();
+                input.readOnly = true;
+            }
+        });
+    </script>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.getElementById("register_form");

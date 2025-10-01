@@ -18,6 +18,7 @@ use App\Http\Controllers\Secret\SContactController;
 use App\Http\Controllers\Secret\SDashboardController;
 use App\Http\Controllers\Secret\SDepositController;
 use App\Http\Controllers\Secret\SFinanceController;
+use App\Http\Controllers\Secret\SKycController;
 use App\Http\Controllers\Secret\SMemberController;
 use App\Http\Controllers\Secret\SPaymentOwnerController;
 use App\Http\Controllers\Secret\SProfileController;
@@ -84,6 +85,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/mobile/profile/save', [AccountController::class, 'storeOrUpdate'])->name('profile.save');
     Route::get('/mobile/referral/guidance', [ReferralController::class, 'index'])->name('referral.guidance');
     Route::get('/mobile/referral/signups-summary', [ReferralController::class, 'signupsSummary'])->name('referral.signups.summary');
+    Route::get('/mobile/referral/verification', [ReferralController::class, 'verification'])->name('referral.verification');
+    Route::get('/mobile/referral/commision', [ReferralController::class, 'referralCommissions'])->name('referral.referralCommissions');
 
     Route::get('/secret/games/play/{providerId}/{gameCode}', [GameController::class, 'playGame'])
         ->name('secret.games.play');
@@ -92,6 +95,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('secret.games.play');
 
     Route::get('/update-balance', [AccountController::class, 'updateBalance']);
+
+    Route::post('/kyc/upload', [ReferralController::class, 'store'])->name('kyc.store');
 });
 
 Route::prefix('secret')->as('secret.')->group(function () {
@@ -157,6 +162,7 @@ Route::prefix('secret')->as('secret.')->group(function () {
         Route::prefix('finance-settings')->as('finance.')->controller(SFinanceController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('update', 'update')->name('update');
+            Route::post('/referral-commission-setting', 'updateReferralSetting')->name('update.referral.setting');
         });
 
         Route::prefix('payment-owners')->as('payment_owners.')->controller(SPaymentOwnerController::class)->group(function () {
@@ -202,5 +208,11 @@ Route::prefix('secret')->as('secret.')->group(function () {
 
         Route::get('provider-credentials', [App\Http\Controllers\Secret\SProviderCredentialController::class, 'index'])->name('provider.index');
         Route::post('provider-credentials/store-or-update', [App\Http\Controllers\Secret\SProviderCredentialController::class, 'storeOrUpdate'])->name('provider.storeOrUpdate');
+
+        Route::prefix('/kyc')->group(function () {
+            Route::get('/', [SKycController::class, 'view'])->name('kyc.index'); // 🟢 manggil Blade
+            Route::get('/list', [SKycController::class, 'index'])->name('kyc.list');
+            Route::post('/review/{id}', [SKycController::class, 'review'])->name('kyc.review');
+        });
     });
 });

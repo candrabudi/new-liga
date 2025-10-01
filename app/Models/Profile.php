@@ -25,4 +25,9 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function kycDocuments()
+    {
+        return $this->hasMany(KycDocument::class);
+    }
 }

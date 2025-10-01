@@ -21,8 +21,10 @@
             <div class="menu-title">Deposit</div>
         </a>
         <ul>
-            <li><a href="{{ route('secret.deposits.pending') }}"><i class='bx bx-radio-circle'></i>Deposit Pending</a></li>
-            <li><a href="{{ route('secret.deposits.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Deposit</a></li>
+            <li><a href="{{ route('secret.deposits.pending') }}"><i class='bx bx-radio-circle'></i>Deposit Pending</a>
+            </li>
+            <li><a href="{{ route('secret.deposits.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Deposit</a>
+            </li>
         </ul>
     </li>
     <li>
@@ -31,8 +33,10 @@
             <div class="menu-title">Withdraw</div>
         </a>
         <ul>
-            <li><a href="{{ route('secret.withdraws.pending') }}"><i class='bx bx-radio-circle'></i>Withdraw Pending</a></li>
-            <li><a href="{{ route('secret.withdraws.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Withdraw</a></li>
+            <li><a href="{{ route('secret.withdraws.pending') }}"><i class='bx bx-radio-circle'></i>Withdraw Pending</a>
+            </li>
+            <li><a href="{{ route('secret.withdraws.history') }}"><i class='bx bx-radio-circle'></i>Riwayat Withdraw</a>
+            </li>
         </ul>
     </li>
     <li>
@@ -77,6 +81,13 @@
         <a href="{{ route('secret.profile.index') }}">
             <div class="parent-icon"><i class="bx bx-user-circle"></i></div>
             <div class="menu-title">Profile</div>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('secret.kyc.index') }}">
+            <div class="parent-icon"><i class="bx bx-id-card"></i></div>
+            <div class="menu-title">KYC</div>
         </a>
     </li>
     <li>

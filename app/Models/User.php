@@ -50,4 +50,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function kycDocuments()
+    {
+        return $this->hasMany(KycDocument::class);
+    }
+
+    public function latestKyc()
+    {
+        return $this->hasOne(KycDocument::class)->latestOfMany();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

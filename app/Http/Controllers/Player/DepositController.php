@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Player;
 
 use App\Http\Controllers\Controller;
 use App\Models\FinanceSetting;
+use App\Models\KycDocument;
 use App\Models\PaymentOwner;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -76,7 +77,6 @@ class DepositController extends Controller
 
         $user = Auth::user();
 
-        // Validasi jika ada transaksi pending
         $pendingTransaction = Transaction::where('user_id', $user->id)
             ->where('status', 'pending')
             ->exists();
@@ -89,9 +89,11 @@ class DepositController extends Controller
 
         $proofPath = $request->file('TransactionReceipt')->store('proofs', 'public');
 
-        $paymentOwner = PaymentOwner::where('account_number', $request->ToAccountNumber)
-            ->first();
+        $paymentOwner = PaymentOwner::where('account_number', $request->ToAccountNumber)->first();
 
+        $kyc = KycDocument::where('referrer_code', $user->member->referral_code)
+            ->where('status', 'approved')
+            ->first();
         $transaction = Transaction::create([
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -101,6 +103,7 @@ class DepositController extends Controller
             'proof' => $proofPath,
             'amount' => $request->Amount,
             'reason' => "Deposit dari {$request->FromAccountNumber} ke {$request->ToAccountNumber}",
+            'refer_id' => $kyc->user_id ?? null,
         ]);
 
         return response()->json([
@@ -129,7 +132,6 @@ class DepositController extends Controller
 
         $user = Auth::user();
 
-        // Validasi jika ada transaksi pending
         $pendingTransaction = Transaction::where('user_id', $user->id)
             ->where('status', 'pending')
             ->exists();
@@ -144,6 +146,9 @@ class DepositController extends Controller
 
         $paymentOwner = PaymentOwner::findOrFail($request->ToQrisAccount);
 
+        $kyc = KycDocument::where('referrer_code', $user->member->referral_code)
+            ->where('status', 'approved')
+            ->first();
         $transaction = Transaction::create([
             'user_id' => $user->id,
             'type' => 'deposit',
@@ -153,6 +158,7 @@ class DepositController extends Controller
             'proof' => $proofPath,
             'amount' => $request->Amount,
             'reason' => "Deposit via QRIS ke {$paymentOwner->account_name}",
+            'refer_id' => $kyc->user_id ?? null,
         ]);
 
         return response()->json([

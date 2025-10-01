@@ -3,22 +3,8 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('Content/mobile/referral.css') }}">
     <style>
-        #alert_box {
-            display: none;
-            padding: 12px 20px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        #alert_box.success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        #alert_box.error {
-            background-color: #f8d7da;
-            color: #721c24;
+        .reporting-scroll-container {
+            overflow-x: auto;
         }
 
         table th,
@@ -38,48 +24,50 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                    <form action="{{ route('referral.signups.summary') }}" method="post">
+                    <form action="{{ route('referral.referralCommissions') }}" method="post">
                         @csrf
                         <div class="reporting-control-group">
                             <div class="form-group">
                                 <label>Tanggal Mulai</label>
-                                <input type="date" class="form-control" id="starting_date" name="StartingDate"
+                                <input type="date" class="form-control" name="StartingDate"
                                     value="{{ $startDate ?? now()->startOfMonth()->format('Y-m-d') }}">
 
                                 <label class="mt-2">Tanggal Selesai</label>
-                                <input type="date" class="form-control" id="ending_date" name="EndingDate"
+                                <input type="date" class="form-control" name="EndingDate"
                                     value="{{ $endDate ?? now()->endOfMonth()->format('Y-m-d') }}">
                             </div>
 
                             <div class="standard-button-group mt-3">
-                                <button type="submit" class="btn btn-primary standard-secondary-button">
-                                    Cari
-                                </button>
+                                <button type="submit" class="btn btn-primary standard-secondary-button">Cari</button>
                             </div>
                         </div>
 
                         <div class="reporting-scroll-container mt-4">
-                            <table class="table">
+                            <table class="table grid_table">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Nama Pengguna</th>
                                         <th>Nomor Telepon</th>
                                         <th>Total Deposit</th>
-                                        <th>Join</th>
+                                        <th>Komisi</th>
+                                        <th>Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($members as $member)
+                                    @forelse($commissions as $key => $item)
                                         <tr>
-                                            <td>{{ $member['name'] }}</td>
-                                            <td>{{ $member['phone'] }}</td>
-                                            <td>{{ $member['deposits'] ?? 0 }}</td>
-                                            <td>{{ $member['joined_at'] }}</td>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item['name'] }}</td>
+                                            <td>{{ $item['phone'] }}</td>
+                                            <td>{{ number_format($item['total_deposit']) }}</td>
+                                            <td>{{ number_format($item['commission_amount']) }}</td>
+                                            <td>{{ $item['created_at'] }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center text-muted">
-                                                Belum ada referral yang join pada periode ini.
+                                            <td colspan="6" class="text-center text-muted">
+                                                Belum ada komisi referral untuk periode ini.
                                             </td>
                                         </tr>
                                     @endforelse
