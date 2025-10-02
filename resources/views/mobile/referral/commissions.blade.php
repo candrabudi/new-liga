@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                    <form action="{{ route('referral.referralCommissions') }}" method="post">
+                    <form action="{{ route('referral.referralCommissions') }}">
                         @csrf
                         <div class="reporting-control-group">
                             <div class="form-group">
